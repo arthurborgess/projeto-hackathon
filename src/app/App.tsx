@@ -5,7 +5,6 @@ export const App = () => {
   return (
     <>
       <GlobalStyle />
-      <h1>Teste</h1>
       <LoginCadastro />
     </>
   );

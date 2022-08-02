@@ -1,4 +1,4 @@
-export const cpfMask = (event: React.KeyboardEvent<HTMLInputElement>) => {
+export const cpfValidate = (event: React.KeyboardEvent<HTMLInputElement>) => {
     event.preventDefault();
 
     if ((/[0-9]+/g).test(event.key) && event.target.value.length <= 13) {
@@ -13,11 +13,5 @@ export const cpfMask = (event: React.KeyboardEvent<HTMLInputElement>) => {
     }
     if (event.target.value.length === 11) {
         event.currentTarget.value += '-';
-    }
-}
-
-export const pasteCheck = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === 'v' && event.ctrlKey) {
-        return false;
     }
 }

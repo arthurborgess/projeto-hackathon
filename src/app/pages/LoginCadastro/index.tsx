@@ -1,6 +1,6 @@
-import { Container, Form, Input, Submit } from "./styles";
+import { Container, Form, Input, SaveLogin, Submit } from "./styles";
 import { useState } from "react";
-import { cpfMask, pasteCheck } from "../../helpers/cpfMask";
+import { cpfValidate } from "../../helpers/cpfValidate";
 
 export const LoginCadastro = () => {
 
@@ -18,21 +18,27 @@ export const LoginCadastro = () => {
     return (
         <Container>
             <Form onSubmit={loginEvent}>
+                <h3>Entre ou cadastre-se</h3>
                 <Input
                     placeholder="E-mail"
                     type="email"
                     onChange={(event) => setEmail(event.target.value)}
                     required
+                    autoFocus
                 />
                 <Input
                     placeholder="CPF"
                     type="text"
-                    onKeyPress={cpfMask}
+                    onKeyPress={cpfValidate}
                     onChange={(event) => setCpf(event.target.value)}
-                    onKeyUp={pasteCheck}
+                    onPaste={e => { e.preventDefault() }}
                     required
                     minLength={14}
                 />
+                <SaveLogin>
+                    <input type="checkbox" id="saveLogin" name="saveLogin" />
+                    <label htmlFor="saveLogin">Mantenha-me conectado</label>
+                </SaveLogin>
                 <Submit type="submit">Entrar</Submit>
             </Form>
         </Container>
