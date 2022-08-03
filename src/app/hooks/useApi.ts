@@ -1,4 +1,4 @@
-import { SHA256 } from "crypto-js";
+import { MD5 } from "crypto-js";
 
 const Airtable = require('airtable');
 const base = new Airtable({ apiKey: process.env.REACT_APP_API_KEY }).base('app9wnjqsxjLcI8yq');
@@ -12,7 +12,8 @@ export const useApi = () => ({
         return response[0].fields;
     },
     login: async (email: string, cpf: string) => {
-        const currentUser = SHA256(email + '-' + cpf).toString();
+        const currentUser = MD5(email + '-' + cpf).toString();
+
         var response = await table.select({
             filterByFormula: `id_usuario = "${currentUser}"`
         }).firstPage();
