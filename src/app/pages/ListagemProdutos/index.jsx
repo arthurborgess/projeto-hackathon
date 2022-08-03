@@ -1,8 +1,7 @@
-
 import { useEffect, useState } from 'react'
 import style from '../../styles/list.module.css'
 import Product from '../../components/Product'
-import {utcDateFormat} from '../../helpers/dateHandler'
+import { utcDateFormat } from '../../helpers/dateHandler'
 
 const apiKey = 'keyaVkftbYjaJeJnG'
 const url = 'https://api.airtable.com/v0/app9wnjqsxjLcI8yq/Produtos'
@@ -13,26 +12,26 @@ export function Listagem() {
 
     const loadProducts = () => {
 
-        fetch(url, {headers: { Authorization: `Bearer ${apiKey}` }})
-        .then(resp => resp.json())
-        .then(data => {
+        fetch(url, { headers: { Authorization: `Bearer ${apiKey}` } })
+            .then(resp => resp.json())
+            .then(data => {
 
-            let productsArray = []
+                let productsArray = []
 
-            for(let record of data.records) {
-                
-                // criando um objeto com os dados que realmente vamos utilizar
-                const id = record.id
-                const name = record.fields.nome
-                const creationDate = utcDateFormat(record.fields.data_criacao);
-               
-                const product = {id, name, creationDate}
+                for (let record of data.records) {
 
-                productsArray.push(product)
-            }
+                    // criando um objeto com os dados que realmente vamos utilizar
+                    const id = record.id
+                    const name = record.fields.nome
+                    const creationDate = utcDateFormat(record.fields.data_criacao);
 
-            setProducts(productsArray)
-        })
+                    const product = { id, name, creationDate }
+
+                    productsArray.push(product)
+                }
+
+                setProducts(productsArray)
+            })
 
     }
 
@@ -46,7 +45,7 @@ export function Listagem() {
     }
 
     return (
-    
+
         <div className={style.container}>
 
             <div className={style.top}>
@@ -57,15 +56,15 @@ export function Listagem() {
             <div className={style.content}>
                 {
                     products.map((product, index) => {
-                        return(
-                        <Product
-                        key={index}
-                        id={product.id}
-                        name={product.name}
-                        dateObj={product.creationDate}
-                        onRemove={remove}
-                        />
-                    )
+                        return (
+                            <Product
+                                key={index}
+                                id={product.id}
+                                name={product.name}
+                                dateObj={product.creationDate}
+                                onRemove={remove}
+                            />
+                        )
                     })
                 }
             </div>

@@ -7,7 +7,7 @@ export const useApi = () => ({
         var response = await table.select({
             filterByFormula: `id_usuario = "${token}"`
         }).firstPage();
-        return response;
+        return response[0].fields;
     },
     login: async (email: string, cpf: string) => {
         var response = await table.select({
@@ -19,6 +19,7 @@ export const useApi = () => ({
                 email_usuario: email,
                 cpf_usuario: cpf
             })
+            return response.fields;
         }
         return response[0].fields;
     }
