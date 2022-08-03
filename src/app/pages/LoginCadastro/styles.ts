@@ -23,6 +23,17 @@ export const Form = styled.form`
     h3 {
         margin-bottom: 15px;
     }
+
+    #cpf-input {
+        width: 100%;
+        height: 40px;
+        border-radius: 3px;
+        text-indent: 10px;
+        background-color: #F9F9F9;
+        outline-color: #1A5FFF;
+        border: 0;
+        margin-top: 15px;
+    }
 `;
 
 export const Input = styled.input`
@@ -32,7 +43,7 @@ export const Input = styled.input`
     text-indent: 10px;
     background-color: #F9F9F9;
     outline-color: #1A5FFF;
-    border: 1px solid #999;
+    border: 0;
     margin-top: 15px;
 `;
 
