@@ -5,7 +5,7 @@ export const SelectDayWeek = () => {
   
   const weekDays = ["d", "s", "t", "q", "q", "s", "s"]
   const [ selectedDay, setSelectedDay ] = useState<number | null>(null)
-  
+
   return (
     <div>
       <p>Repetir:</p>

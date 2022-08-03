@@ -1,6 +1,5 @@
-import { useRef } from "react"
-import { SelectDayWeek } from "../../components"
-import { Title, CenterWrapper, WrapperProducts, InputNumber } from "./styled"
+import { RepetitionPattern, SelectDayWeek } from "../../components"
+import { CenterWrapper, WrapperProducts } from "./styled"
 
 export const ProductManager = () => {
   
@@ -9,6 +8,7 @@ export const ProductManager = () => {
     <CenterWrapper>
       <WrapperProducts>
         <SelectDayWeek/>
+        <RepetitionPattern/>
       </WrapperProducts>
     </CenterWrapper>
   )
