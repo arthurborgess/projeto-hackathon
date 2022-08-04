@@ -9,9 +9,13 @@ export const App = () => {
     <>
       <GlobalStyle />
       <Routes>
+
         <Route path="/login" element={<LoginCadastro />} />
+
         <Route path="/new" element={<RequireAuth><h1>Aqui ficará o componente de cadastro</h1></RequireAuth>} />
-        <Route path="/" element={<RequireAuth><Listagem /></RequireAuth>} />
+
+        <Route path="/listagem" element={<Listagem />} />
+
       </Routes>
     </>
   );

@@ -1,7 +1,7 @@
 
-
 import { useState } from 'react'
 import style from '../styles/modal.module.css'
+import globalStyle from '../styles/global.module.css'
 
 export default function Modal({title, msg, onConfirmation}){
 
@@ -20,21 +20,24 @@ export default function Modal({title, msg, onConfirmation}){
                     onClick={e => {
                         setShow(false)
                         onConfirmation(false)
-                    }}
-                    >x</div>
+                    }}>x</div>
                 </div>
             
                 <div className={style.body}>{msg}</div>
 
                 <div className={style.bottom}>
 
-                    <button onClick={e => {
+                    <button 
+                    className={globalStyle.actionBtn}
+                    onClick={e => {
                         setShow(false)
                         onConfirmation(true)
 
                     }}>Sim</button>
 
-                    <button onClick={e => {
+                    <button 
+                    className={globalStyle.actionBtn}
+                    onClick={e => {
                         setShow(false)
                         onConfirmation(false)
 

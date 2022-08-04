@@ -1,6 +1,7 @@
 
 import { useState } from 'react'
 import style from '../styles/product.module.css'
+import globalStyle from '../styles/global.module.css'
 import Modal from './Modal'
 
 // define cada produto da lista de produtos
@@ -12,7 +13,7 @@ export default function Product({id, name, dateObj, onRemove}) {
     // confirmation => se quer ou não remover o produto
     const modalHandler = (confirmation) => {
 
-        if(confirmation) { onRemove(id)   }
+        if(confirmation) { onRemove(id) }
         setShowModal(false)
     }
 
@@ -22,15 +23,23 @@ export default function Product({id, name, dateObj, onRemove}) {
 
         <>
         <div className={style.container}>
-            <div>{`${date} ${month} ${year} ${day}`}</div>
-            <div>{name}</div>
-            <button onClick={e => setShowModal(true)}>Remove</button>
+
+            <div className={style.date}>
+                {`${date} ${month} ${year} (${day})`}
+            </div>
+
+            <div className={style.name}>{name}</div>
+
+            <button 
+            className={`${style.removeBtn} ${globalStyle.actionBtn}`}
+            onClick={e => setShowModal(true)}>Remover</button>
+
         </div>
 
         {
             showModal && 
             <Modal 
-            title='Confirmar?'
+            title='Confirmar'
             msg={`Deseja excluir o item ${name}?`}
             onConfirmation={modalHandler}
             />

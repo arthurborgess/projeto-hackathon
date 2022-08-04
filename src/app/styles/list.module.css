@@ -2,18 +2,24 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    max-width: 650px;
+    margin: auto;
 }
 
 .top {
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding-top: 20px;
+    padding-bottom: 10px;
+}
+
+.registerBtn {
+    align-self: flex-start;
+    background-color: #1A73FF;
 }
 
 .content {
-
     display: flex;
     flex-direction: column;
-    width: 600px;
-    margin: auto;
 }
