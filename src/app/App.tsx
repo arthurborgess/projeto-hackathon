@@ -1,14 +1,14 @@
 import { GlobalStyle } from "./App.styles";
-import { LoginCadastro } from "./pages/LoginCadastro";
-import { ProductManager } from "./pages/ProdutcManager";
+import { CreateProductModal } from "./components/CreateProduct";
+import { CreateProdcutProvider } from "./contexts/CreateProductProvider ";
 
 export const App = () => {
   return (
     <>
+    <CreateProdcutProvider>
       <GlobalStyle />
-      {/* <h1>Teste</h1>
-      <LoginCadastro /> */}
-      <ProductManager/>
+      <CreateProductModal/>
+    </CreateProdcutProvider>
     </>
   );
 }
