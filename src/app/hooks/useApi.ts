@@ -19,9 +19,7 @@ export const useApi = () => ({
         }).firstPage();
         if (response.length === 0) {
             response = await table.create({
-                id_usuario: currentUser,
-                email_usuario: email,
-                cpf_usuario: cpf
+                id_usuario: currentUser
             })
             return response.fields;
         }
