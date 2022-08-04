@@ -6,7 +6,9 @@ export const RequireAuth = ({ children }: { children: JSX.Element }) => {
     const auth = useContext(AuthContext);
 
     if (!auth.user) {
-        return <LoginCadastro />;
+        setTimeout(() => {
+            return <LoginCadastro />;
+        }, 1);
     }
 
     return children;

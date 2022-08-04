@@ -9,6 +9,7 @@ export const useApi = () => ({
         var response = await table.select({
             filterByFormula: `id_usuario = "${token}"`
         }).firstPage();
+
         return response[0].fields;
     },
     login: async (email: string, cpf: string) => {
@@ -17,12 +18,14 @@ export const useApi = () => ({
         var response = await table.select({
             filterByFormula: `id_usuario = "${currentUser}"`
         }).firstPage();
+
         if (response.length === 0) {
             response = await table.create({
                 id_usuario: currentUser
             })
             return response.fields;
         }
+
         return response[0].fields;
     }
 });
