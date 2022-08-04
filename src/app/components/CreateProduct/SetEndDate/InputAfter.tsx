@@ -1,7 +1,7 @@
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import React, { useContext, useEffect, useState } from "react";
-import { CreateProductContext } from "../../../contexts/CreateProductProvider ";
+import { CreateProductContext } from "../../../contexts/Products/CreateProductProvider ";
 import { getEndDate } from "../../../helpers/nextOcurrenceDay";
 
 interface InputAfterProps {

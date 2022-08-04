@@ -1,5 +1,5 @@
 import { createContext, ReactNode, useEffect, useState } from "react";
-import { GetAndSeterProductData, RepeatPatternInterface, typeEndOption, weekDaysTypes } from "../types/Product";
+import { GetAndSeterProductData, RepeatPatternInterface, typeEndOption, weekDaysTypes } from "../../types/Product";
 
 
 interface ProducContextProviderProps {

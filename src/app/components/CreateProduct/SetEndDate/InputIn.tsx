@@ -5,7 +5,7 @@ import pt from 'date-fns/locale/pt';
 import 'react-datepicker/dist/react-datepicker.css' 
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
-import { CreateProductContext } from "../../../contexts/CreateProductProvider ";
+import { CreateProductContext } from "../../../contexts/Products/CreateProductProvider ";
 
 registerLocale('pt', pt)
 
