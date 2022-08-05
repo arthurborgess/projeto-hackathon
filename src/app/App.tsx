@@ -7,10 +7,8 @@ import { Route, Routes } from "react-router-dom";
 
 export const App = () => {
   return (
-    <>
     <CreateProdcutProvider>
       <GlobalStyle />
-
         <Routes>
 
           <Route path="/login" element={<LoginCadastro />} />
@@ -21,6 +19,5 @@ export const App = () => {
 
         </Routes>
     </CreateProdcutProvider>
-    </>
   );
 }
