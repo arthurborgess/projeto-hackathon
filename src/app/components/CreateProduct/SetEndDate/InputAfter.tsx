@@ -3,11 +3,11 @@ import { ptBR } from "date-fns/locale";
 import React, { useContext, useEffect, useState } from "react";
 import { CreateProductContext } from "../../../contexts/Products/CreateProductProvider ";
 import { getEndDate } from "../../../helpers/nextOcurrenceDay";
+import { Alert, InputFrequency, Wrapper, WrapperInputLabel } from "./styled";
 
 interface InputAfterProps {
   onClick: React.MouseEventHandler<HTMLInputElement>;
 }
-
 
 export const InputAfter = ({onClick}:InputAfterProps) => {
   
@@ -17,6 +17,11 @@ export const InputAfter = ({onClick}:InputAfterProps) => {
   useEffect(() => {
     typeEnd === "after" ? setPeriod(0) : setPeriod("")
   },[typeEnd])
+
+  useEffect(() => {
+    setEndDate(null)
+    setPeriod("")
+  },[repeatPattern , weekDays])
 
   function handleSelecEndPeriod(event: React.ChangeEvent<HTMLInputElement>){
     const actualPeriod = event.target.valueAsNumber
@@ -41,15 +46,19 @@ export const InputAfter = ({onClick}:InputAfterProps) => {
   } 
   
   return (
-    <div>
-    <input
-      type={"radio"}
-      name="selectPattern"
-      onClick={onClick}
-    />
-    <label htmlFor="option">Após</label>
+    <>
+    <Wrapper>
+      <WrapperInputLabel>
+        <input
+          type={"radio"}
+          name="selectPattern"
+          onClick={onClick}
+          radioGroup="selectPattern"
+        />
+        <label htmlFor="option">Após:</label>
+      </WrapperInputLabel>
     
-    <input 
+    <InputFrequency 
       type="number" 
       placeholder="0 - 100"
       onChange={(e) => handleSelecEndPeriod(e)}
@@ -59,12 +68,13 @@ export const InputAfter = ({onClick}:InputAfterProps) => {
     <span>
       Periodos
     </span>
-    
-    {endDate !== null && typeEnd === "after" && (
-      <p>Este produto nao será adicionado as suas listas de compras a partir do dia: 
-        {format(endDate, "dd MMM yyyy", {locale: ptBR})}
-      </p>
+  </Wrapper>
+  
+  {endDate !== null && typeEnd === "after" && (
+      <Alert>Este produto nao será adicionado as suas listas de compras a partir do dia: <br/>
+        <span>{format(endDate, "dd MMM yyyy", {locale: ptBR})}</span>
+      </Alert>
     )}
-  </div>
+  </>
   )
 }

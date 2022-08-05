@@ -1,6 +1,7 @@
 import { FrequencyTypes } from "../../../types/Product"
-import { CreateProductContext } from "../../../contexts/CreateProductProvider "
+import { CreateProductContext } from "../../../contexts/Products/CreateProductProvider "
 import { useContext } from "react"
+import { NumberInput, Select, Wrapper } from "./styled"
 
 export const RepeatEvery = () => {
 
@@ -34,15 +35,15 @@ export const RepeatEvery = () => {
   }
   
   return(
-    <div>
+    <Wrapper>
       <label htmlFor="repeition">Repetir a cada: </label>
-      <input 
+      <NumberInput 
         value={repeatPattern.frequency}
         onChange={(e) => handleGetRepetitionNumber(e.target.valueAsNumber)}
         type="number" 
         id="repeition"
       />
-      <select onChange={(e) => handleGetTypeSelected(e.target.selectedIndex)} name="repetitionsType" id="repetitions-type">
+      <Select onChange={(e) => handleGetTypeSelected(e.target.selectedIndex)} name="repetitionsType" id="repetitions-type">
         {namesOfRepetition.map((name, index) => (
           <option 
             value={name}
@@ -51,7 +52,7 @@ export const RepeatEvery = () => {
             {repeatPattern.frequency > 1 ? name === "mes" ? name + "es" : name + "s" : name}
           </option>
         ))}
-      </select>
-    </div>
+      </Select>
+    </Wrapper>
   )
 } 

@@ -2,10 +2,10 @@ import { useContext } from "react";
 import DatePiker, { registerLocale } from 'react-datepicker'
 import pt from 'date-fns/locale/pt';
 
-import 'react-datepicker/dist/react-datepicker.css' 
-import { format } from "date-fns";
-import { ptBR } from "date-fns/locale";
+import 'react-datepicker/dist/react-datepicker.css'
 import { CreateProductContext } from "../../../contexts/Products/CreateProductProvider ";
+import { Wrapper, WrapperInputLabel } from "./styled";
+import { format } from "date-fns";
 
 registerLocale('pt', pt)
 
@@ -21,23 +21,27 @@ export const InputIn = ({onClick}:InputInProps) => {
   maxDate.setDate(new Date().getDate() + 2920)
   
   return(
-    <div> 
-    <input 
-      type={"radio"} 
-      name="selectPattern"
-      onClick={onClick}
-      id="input-in"
-    />
-    <label htmlFor="input-in">Em:</label>
+
+    <Wrapper> 
+    <WrapperInputLabel>
+      <input 
+        type={"radio"} 
+        name="selectPattern"
+        onClick={onClick}
+        id="input-in"
+      />
+      <label htmlFor="input-in">Em:</label>
+    </WrapperInputLabel>  
     
     <DatePiker 
+      className='date-piker'
       maxDate={maxDate}
       minDate={weekDays.realInitialDate !== null? weekDays.realInitialDate : initialDate }
       startDate={weekDays.realInitialDate !== null? weekDays.realInitialDate : initialDate }
       selected={typeEnd === "in" && endDate !== null ? endDate : undefined} 
       onChange={ date => setEndDate( date !== null ?  date : null)}
 
-      placeholderText={format(initialDate, "dd MMM. yyyy",{locale: ptBR})}
+      placeholderText={format(initialDate, "dd MMM. yyyy", {locale: pt})}
       
       showYearDropdown
       dateFormat={"dd MMM. yyyy"}
@@ -47,6 +51,6 @@ export const InputIn = ({onClick}:InputInProps) => {
       disabled={typeEnd !== "in" && true}  
       onKeyDown={(e) => e.preventDefault()}
     />
-  </div>
+  </Wrapper>
   )
 }

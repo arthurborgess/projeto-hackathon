@@ -1,8 +1,9 @@
-import { useContext} from "react"
-import { CreateProductContext } from "../../../contexts/CreateProductProvider ";
+import { useContext, useEffect, useState} from "react"
+import { CreateProductContext } from "../../../contexts/Products/CreateProductProvider ";
 
 import { InputIn } from './InputIn';
 import { InputAfter } from "./InputAfter";
+import { WrapperInputLabel } from "./styled";
 
 export type SelectPatternTypes = "never" | "in" | "after"
 
@@ -12,18 +13,18 @@ export const SetEndDate = () => {
 
   return (
     <div>
-      <p>Termina em</p>
+      <p>Termina em:</p>
 
-      <div>
+      <WrapperInputLabel>
         <input 
           id="input-never"
+          defaultChecked
           type={"radio"}
-          defaultChecked 
           name="selectPattern"
           onClick={() => setTypeEnd('never')}
         />
         <label htmlFor="input-never">Nunca</label>
-      </div>
+      </WrapperInputLabel>
 
       <InputIn 
         onClick={() => setTypeEnd('in')}

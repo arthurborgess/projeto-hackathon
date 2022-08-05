@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { CreateProductContext } from '../../../contexts/CreateProductProvider ';
+import { CreateProductContext } from '../../../contexts/Products/CreateProductProvider ';
 
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
@@ -7,6 +7,7 @@ import pt from 'date-fns/locale/pt';
 
 import DatePiker, { registerLocale } from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css' 
+import { Wrapper } from './styled';
 
 registerLocale('pt', pt)
 
@@ -20,9 +21,10 @@ export const SetInitialDate = () => {
   } 
 
   return (
-    <div>
-      <p>Inicia à partir do dia: </p>
+    <Wrapper>
+      <p>Iniciar dia: </p>
       <DatePiker 
+        className='date-piker'
         startDate={new Date()}
         minDate={new Date()}
         selected={initialDate} 
@@ -37,6 +39,6 @@ export const SetInitialDate = () => {
   
       onKeyDown={(e) => e.preventDefault()}
     />
-  </div>
+  </Wrapper>
   )
 }

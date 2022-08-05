@@ -13,7 +13,10 @@ export interface GetAndSeterProductData{
   endDate: Date | null;
   setEndDate: React.Dispatch<React.SetStateAction<Date | null>>
   weekDays: weekDaysTypes
-  setWeekDays: React.Dispatch<React.SetStateAction<weekDaysTypes>>
+  setWeekDays: React.Dispatch<React.SetStateAction<weekDaysTypes>>,
+  handleCreateProduct: () => void,
+  err: any,
+  isLoading: boolean
 }
 
 export type typeEndOption = "never" | "in" | "after";
@@ -26,4 +29,14 @@ export interface RepeatPatternInterface {
 export interface weekDaysTypes {
   days: number[];
   realInitialDate: Date | null;
+}
+
+export interface createProductType {
+  nome: string,
+  tipo_de_repeticao: string,
+  frequencia_da_repeticao: number,
+  repete_nos_dias: string,
+  encerramento: EpochTimeStamp,
+  data_criacao: EpochTimeStamp,
+  data_primeira_ocorrencia: EpochTimeStamp
 }

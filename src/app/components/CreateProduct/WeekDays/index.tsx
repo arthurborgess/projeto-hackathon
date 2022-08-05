@@ -1,9 +1,9 @@
 import { format } from "date-fns"
 import { ptBR } from "date-fns/locale"
 import { useContext } from "react"
-import { CreateProductContext } from "../../../contexts/CreateProductProvider "
+import { CreateProductContext } from "../../../contexts/Products/CreateProductProvider "
 import { getNextOcurrencyDay } from "../../../helpers/nextOcurrenceDay"
-import { Day, DaysWrapper } from "./styled"
+import { Alert, Day, DaysWrapper, Wrapper } from "./styled"
 
 export const WeekDays = () => {
   
@@ -25,7 +25,7 @@ export const WeekDays = () => {
   }
 
   return (
-    <div>
+    <Wrapper>
       <p>Repetir:</p>
       <DaysWrapper>
         {days.map((day, index) => (
@@ -40,10 +40,10 @@ export const WeekDays = () => {
       </DaysWrapper>
 
       {weekDays.realInitialDate !== null && (
-      <p>Estará disponivel nas listas a partir do dia: 
-        {format(weekDays.realInitialDate , "dd MMM. yyyy", {locale: ptBR})} 
-      </p>
+      <Alert>Estará disponivel nas listas a partir do dia: <br/>
+        <span> {format(weekDays.realInitialDate , "dd MMM. yyyy", {locale: ptBR})}</span>
+      </Alert>
       )}
-    </div>
+    </Wrapper>
   )
 }
