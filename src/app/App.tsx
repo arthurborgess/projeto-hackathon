@@ -13,12 +13,9 @@ export const App = () => {
         <GlobalStyle />
 
         <Routes>
-
           <Route path="/login" element={<LoginCadastro />} />
-
           <Route path="/" element={<RequireAuth><Listagem /></RequireAuth>} />
           <Route path="/new" element={<RequireAuth><CreateProductModal isOpen={true} /></RequireAuth>} />
-
         </Routes>
       </CreateProdcutProvider>
     </>
