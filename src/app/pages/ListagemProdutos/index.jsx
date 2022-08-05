@@ -1,47 +1,43 @@
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import style from '../../styles/list.module.css'
+import globalStyle from '../../styles/global.module.css'
 import Product from '../../components/Product'
 import { utcDateFormat } from '../../helpers/dateHandler'
-
-const apiKey = 'keyaVkftbYjaJeJnG'
-const url = 'https://api.airtable.com/v0/app9wnjqsxjLcI8yq/Produtos'
+import { useApi } from '../../hooks/useApi'
 
 export function Listagem() {
 
     let [products, setProducts] = useState([])
+    let api = useApi()
+    let userIdTest = '0277a69cf889d21e9614966db20e858a'
 
     const loadProducts = () => {
 
-        fetch(url, { headers: { Authorization: `Bearer ${apiKey}` } })
-            .then(resp => resp.json())
-            .then(data => {
+        api.getProducts(userIdTest).then(records => {
 
-                let productsArray = []
+            let productArray = []
 
-                for (let record of data.records) {
+            for (let record of records) {
 
-                    // criando um objeto com os dados que realmente vamos utilizar
-                    const id = record.id
-                    const name = record.fields.nome
-                    const creationDate = utcDateFormat(record.fields.data_criacao);
+                let id = record.id
+                let name = record.product.nome
+                let creationDate = utcDateFormat(record.product.data_criacao)
 
-                    const product = { id, name, creationDate }
-
-                    productsArray.push(product)
-                }
-
-                setProducts(productsArray)
-            })
-
+                productArray.push({ id, name, creationDate })
+            }
+            setProducts(productArray)
+        })
     }
 
     useEffect(() => {
         loadProducts()
 
-    }, [])
+    }, [products])
 
-    const remove = (id) => {
-        console.log(id);
+    const remove = (recordID) => {
+        api.removeProduct(recordID)
+        loadProducts()
     }
 
     return (
@@ -50,7 +46,12 @@ export function Listagem() {
 
             <div className={style.top}>
                 <h1>Listagem</h1>
-                <button>Cadastrar</button>
+
+                <button
+                    className={`${style.registerBtn} ${globalStyle.actionBtn}`}>
+                    <Link to='/new'>Cadastrar</Link>
+                </button>
+
             </div>
 
             <div className={style.content}>
