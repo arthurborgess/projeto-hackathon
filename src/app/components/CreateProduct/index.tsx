@@ -7,6 +7,7 @@ import { CreateProductContext } from "../../contexts/Products/CreateProductProvi
 import { ButtonsWrapper, Cancel, Create, Modal ,Overlay, Title, Wrapper } from "./styled"
 import { AuthContext } from "../../contexts/Auth/AuthContext"
 
+
 interface CreateProdutModalProps {
   isOpen: boolean;
   setModalOpen?: React.Dispatch<React.SetStateAction<boolean>>
@@ -18,9 +19,9 @@ export const CreateProductModal = ({isOpen, setModalOpen, toClose}: CreateProdut
   const { user } = useContext(AuthContext)
 
   useEffect(() => {
-  },[isLoading])
+  }, [isLoading])
 
-  function handleChangeName(e: React.ChangeEvent<HTMLInputElement>){
+  function handleChangeName(e: React.ChangeEvent<HTMLInputElement>) {
     e.preventDefault()
     setItemName(e.target.value)
   }
@@ -31,17 +32,17 @@ export const CreateProductModal = ({isOpen, setModalOpen, toClose}: CreateProdut
     >
       <Wrapper>
         <Modal>
-          <Title 
-          placeholder="Nome do produto"
-          onChange={(e) => handleChangeName(e) }
-          value={itemName}
+          <Title
+            placeholder="Nome do produto"
+            onChange={(e) => handleChangeName(e)}
+            value={itemName}
           />
-          <RepeatEvery/> 
-          <SetInitialDate/>
+          <RepeatEvery />
+          <SetInitialDate />
           {repeatPattern.type === "semana" && (
-            <WeekDays/>       
+            <WeekDays />
           )}
-          <SetEndDate/>
+          <SetEndDate />
           <ButtonsWrapper>
             <Cancel>Cancelar</Cancel>
             <Create onClick={() => handleCreateProduct(user)}>Criar</Create>

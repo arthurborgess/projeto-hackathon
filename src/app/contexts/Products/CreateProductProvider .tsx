@@ -3,7 +3,6 @@ import { GetAndSeterProductData, RepeatPatternInterface, typeEndOption, weekDays
 
 import { useApi } from "../../hooks/useApi";
 import { getUnixTime } from "date-fns";
-import { AuthContext } from "../Auth/AuthContext";
 import { User } from "../../types/User";
 
 
@@ -12,23 +11,23 @@ interface ProducContextProviderProps {
   children: ReactNode
 }
 
-export const CreateProductContext = (createContext({} as GetAndSeterProductData ))
+export const CreateProductContext = (createContext({} as GetAndSeterProductData))
 
-export function CreateProdcutProvider ({children}: ProducContextProviderProps){
+export function CreateProdcutProvider({ children }: ProducContextProviderProps) {
 
   const { createProduct } = useApi()
 
-  const [ err, setErr ] = useState<any>(null)
-  const [ isLoading, setIsLoading ] = useState<boolean>(false)
-  const [ itemName, setItemName ] = useState<string>("")
-  const [ repeatPattern, setRepeatPattern ] = useState<RepeatPatternInterface>({
+  const [err, setErr] = useState<any>(null)
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [itemName, setItemName] = useState<string>("")
+  const [repeatPattern, setRepeatPattern] = useState<RepeatPatternInterface>({
     frequency: 1,
     type: "dia"
   })
-  const [ weekDays, setWeekDays ] = useState<weekDaysTypes>({days: [], realInitialDate: null})
-  const [ initialDate, setInitialDate ] = useState<Date>(new Date)
-  const [ endDate, setEndDate ] = useState<Date | null>(null)
-  const [ typeEnd, setTypeEnd ] =  useState<typeEndOption>('never')
+  const [weekDays, setWeekDays] = useState<weekDaysTypes>({ days: [], realInitialDate: null })
+  const [initialDate, setInitialDate] = useState<Date>(new Date)
+  const [endDate, setEndDate] = useState<Date | null>(null)
+  const [typeEnd, setTypeEnd] = useState<typeEndOption>('never')
 
   useEffect(() => {
     setEndDate(null)
@@ -36,7 +35,7 @@ export function CreateProdcutProvider ({children}: ProducContextProviderProps){
       days: [],
       realInitialDate: null
     })
-  },[initialDate, typeEnd, repeatPattern.type])
+  }, [initialDate, typeEnd, repeatPattern.type])
 
   useEffect(() => {
     setEndDate(null)
@@ -44,13 +43,13 @@ export function CreateProdcutProvider ({children}: ProducContextProviderProps){
       ...prevState,
       realInitialDate: null
     }))
-  },[repeatPattern.type, initialDate])
+  }, [repeatPattern.type, initialDate])
 
-  function getLoading(loading: boolean){
+  function getLoading(loading: boolean) {
     setIsLoading(loading)
   }
 
-  function getErr(Err: any){
+  function getErr(Err: any) {
     setErr(Err)
   }
 
@@ -66,18 +65,18 @@ export function CreateProdcutProvider ({children}: ProducContextProviderProps){
     })
   }
 
-  const contextValue = { 
-    itemName, 
+  const contextValue = {
+    itemName,
     setItemName,
-    typeEnd, 
+    typeEnd,
     setTypeEnd,
-    initialDate, 
+    initialDate,
     setInitialDate,
     endDate,
     setEndDate,
     repeatPattern,
     setRepeatPattern,
-    weekDays, 
+    weekDays,
     setWeekDays,
     handleCreateProduct,
     err,
