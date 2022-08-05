@@ -1,8 +1,7 @@
-
 import { useState } from 'react'
 import { Container } from './style'
 import Modal from '../Modal'
-import {CustomDateObject} from '../../types/Date'
+import { CustomDateObject } from '../../types/Date'
 
 interface ProductProps {
     id: string,
@@ -12,7 +11,7 @@ interface ProductProps {
 }
 
 // define cada produto da lista de produtos
-export default function Product({id, name, dateObj, onRemove}: ProductProps) {
+export default function Product({ id, name, dateObj, onRemove }: ProductProps) {
 
     let [showModal, setShowModal] = useState(false)
 
@@ -20,37 +19,37 @@ export default function Product({id, name, dateObj, onRemove}: ProductProps) {
     // confirmation => se quer ou não remover o produto
     const modalHandler = (confirmation: boolean) => {
 
-        if(confirmation) { onRemove(id) }
+        if (confirmation) { onRemove(id) }
         setShowModal(false)
     }
 
-    let {day, date, month, year} = dateObj
+    let { day, date, month, year } = dateObj
 
     return (
 
         <>
-        <Container>
-            <div className='product-creation-date'>
-                {`${date} ${month} ${year} (${day})`}
-            </div>
+            <Container>
+                <div className='product-creation-date'>
+                    {`${date} ${month} ${year} (${day})`}
+                </div>
 
-            <div className='product-name'>{name}</div>
+                <div className='product-name'>{name}</div>
 
-            <button 
-            className='actionBtn removeBtn'
-            onClick={e => setShowModal(true)}>Remover
-            </button>
+                <button
+                    className='actionBtn removeBtn'
+                    onClick={e => setShowModal(true)}>Remover
+                </button>
 
-        </Container>
+            </Container>
 
-        {
-            showModal && 
-            <Modal 
-            title='Confirmar'
-            msg={`Deseja excluir o item ${name}?`}
-            onConfirmation={modalHandler}
-            />
-        }
+            {
+                showModal &&
+                <Modal
+                    title='Confirmar'
+                    msg={`Deseja excluir o item ${name}?`}
+                    onConfirmation={modalHandler}
+                />
+            }
         </>
     )
 }

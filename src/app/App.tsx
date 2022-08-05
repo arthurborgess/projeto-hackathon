@@ -18,29 +18,16 @@ import { RequireAuth } from "./contexts/Auth/RequireAuth";
 export const App = () => {
   return (
     <>
-    <CreateProdcutProvider>
-      <GlobalStyle />
+      <CreateProdcutProvider>
+        <GlobalStyle />
 
         <Routes>
-
-          <Route 
-          path="/login" 
-          element={<LoginCadastro />} />
-
-          <Route 
-          path="/new" 
-          element={<CreateProductModal isOpen={true}/>} />
-
-          <Route 
-          path="/" 
-          element={<Listagem />} />
-
-          <Route 
-          path="/calendar" 
-          element={<Calendario />} />
-
+          <Route path="/login" element={<LoginCadastro />} />
+          <Route path="/" element={<RequireAuth><Listagem /></RequireAuth>} />
+          <Route path="/new" element={<RequireAuth><CreateProductModal isOpen={true} /></RequireAuth>} />
         </Routes>
-    </CreateProdcutProvider>
+        
+      </CreateProdcutProvider>
     </>
   );
 }

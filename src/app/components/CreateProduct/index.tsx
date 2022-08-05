@@ -4,7 +4,7 @@ import { RepeatEvery } from "./RepeatEvery"
 import { SetEndDate } from "./SetEndDate"
 import { WeekDays } from "./WeekDays"
 import { CreateProductContext } from "../../contexts/Products/CreateProductProvider "
-import { ButtonsWrapper, Cancel, Create, Modal ,Overlay, Title, Wrapper } from "./styled"
+import { ButtonsWrapper, Cancel, Create, Modal, Overlay, Title, Wrapper } from "./styled"
 
 interface CreateProdutModalProps {
   isOpen: boolean;
@@ -12,13 +12,13 @@ interface CreateProdutModalProps {
   toClose?: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export const CreateProductModal = ({isOpen, setModalOpen, toClose}: CreateProdutModalProps) => {
-  const { isLoading ,handleCreateProduct ,itemName, setItemName , repeatPattern } = useContext(CreateProductContext)
+export const CreateProductModal = ({ isOpen, setModalOpen, toClose }: CreateProdutModalProps) => {
+  const { isLoading, handleCreateProduct, itemName, setItemName, repeatPattern } = useContext(CreateProductContext)
 
   useEffect(() => {
-  },[isLoading])
+  }, [isLoading])
 
-  function handleChangeName(e: React.ChangeEvent<HTMLInputElement>){
+  function handleChangeName(e: React.ChangeEvent<HTMLInputElement>) {
     e.preventDefault()
     setItemName(e.target.value)
   }
@@ -29,17 +29,17 @@ export const CreateProductModal = ({isOpen, setModalOpen, toClose}: CreateProdut
     >
       <Wrapper>
         <Modal>
-          <Title 
-          placeholder="Nome do produto"
-          onChange={(e) => handleChangeName(e) }
-          value={itemName}
+          <Title
+            placeholder="Nome do produto"
+            onChange={(e) => handleChangeName(e)}
+            value={itemName}
           />
-          <RepeatEvery/> 
-          <SetInitialDate/>
+          <RepeatEvery />
+          <SetInitialDate />
           {repeatPattern.type === "semana" && (
-            <WeekDays/>       
+            <WeekDays />
           )}
-          <SetEndDate/>
+          <SetEndDate />
           <ButtonsWrapper>
             <Cancel>Cancelar</Cancel>
             <Create onClick={() => handleCreateProduct()}>Criar</Create>

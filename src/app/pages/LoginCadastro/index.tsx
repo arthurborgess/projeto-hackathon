@@ -4,6 +4,7 @@ import { InputCpf } from "../../components/InputCpf/InputCpf";
 import { AuthContext } from "../../contexts/Auth/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { cpfValidate } from "../../helpers/cpfValidate";
+import { emailValidate } from "../../helpers/emailValidate";
 
 export const LoginCadastro = () => {
     const auth = useContext(AuthContext);
@@ -19,7 +20,7 @@ export const LoginCadastro = () => {
         if (formattedCpf.length < 11) {
             alert("O campo CPF precisa estar completo!");
         } else {
-            if (cpfValidate(formattedCpf)) {
+            if (cpfValidate(formattedCpf) && emailValidate(email)) {
                 const isLogged = await auth.login(email, formattedCpf, saveLogin);
                 if (isLogged) {
                     navigate('/');

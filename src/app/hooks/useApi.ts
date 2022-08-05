@@ -1,10 +1,11 @@
 
 import { MD5 } from "crypto-js";
 import { createProductType } from "../types/Product";
-import {ProductRecord} from '../types/Record'
+import { ProductRecord } from '../types/Record'
 
 const Airtable = require('airtable');
-const base = new Airtable({ apiKey: process.env.REACT_APP_API_KEY 
+const base = new Airtable({
+    apiKey: process.env.REACT_APP_API_KEY
 }).base('app9wnjqsxjLcI8yq');
 
 const table = base('Usuarios');
@@ -18,18 +19,18 @@ export const useApi = () => ({
 
         }).firstPage();
 
-        if(response.length === 0) { return null }
+        if (response.length === 0) return false;
 
         return response[0].fields;
     },
-    
+
     login: async (email: string, cpf: string) => {
-        
+
         const currentUser = MD5(email + '-' + cpf).toString();
 
         var response = await table.select({
             filterByFormula: `id_usuario = "${currentUser}"`
-            
+
         }).firstPage();
 
         if (response.length === 0) {
@@ -41,55 +42,55 @@ export const useApi = () => ({
 
         return response[0].fields;
     },
-    createProduct: (getLoading: (status: boolean) => void, getErr:(err: any) => void, user: string , product: createProductType) => {
-        
+    createProduct: (getLoading: (status: boolean) => void, getErr: (err: any) => void, user: string, product: createProductType) => {
+
         getLoading(true)
         base('Produtos').create([
             {
-              "fields": {
-                "id_usuario": user,
-                "nome": product.nome,
-                "tipo_de_repeticao": product.tipo_de_repeticao,
-                "frequencia_da_repeticao": product.frequencia_da_repeticao,
-                "repete_nos_dias": product.repete_nos_dias,
-                "encerramento": product.encerramento,
-                "data_criacao": product.data_criacao,
-                "data_primeira_ocorrencia": product.data_primeira_ocorrencia
-              }
+                "fields": {
+                    "id_usuario": user,
+                    "nome": product.nome,
+                    "tipo_de_repeticao": product.tipo_de_repeticao,
+                    "frequencia_da_repeticao": product.frequencia_da_repeticao,
+                    "repete_nos_dias": product.repete_nos_dias,
+                    "encerramento": product.encerramento,
+                    "data_criacao": product.data_criacao,
+                    "data_primeira_ocorrencia": product.data_primeira_ocorrencia
+                }
             }
-          ], 
+        ],
 
-          function(err: any, records:any) {
-            if (err) { 
-                getLoading(false)
-                getErr(err)
-                return err
-            }
-            records.forEach(function (record:any) {
-                getLoading(false)  
-            return records 
+            function (err: any, records: any) {
+                if (err) {
+                    getLoading(false)
+                    getErr(err)
+                    return err
+                }
+                records.forEach(function (record: any) {
+                    getLoading(false)
+                    return records
+                });
             });
-          }); 
     },
-    
+
     getProducts: async (userID: any) => {
 
         const records = await base('Produtos')
             .select({
                 filterByFormula: `id_usuario = "${userID}"`,
-                sort: [{field: 'data_criacao', direction: 'asc'}]
+                sort: [{ field: 'data_criacao', direction: 'asc' }]
             })
             .all()
 
         // se não tiver produtos
-        if(records.length === 0) {
+        if (records.length === 0) {
             return []
         }
         else {
             let products = []
 
-            for(let record of records) {
-                let p: ProductRecord = {id: record.id, product: record.fields}
+            for (let record of records) {
+                let p: ProductRecord = { id: record.id, product: record.fields }
                 products.push(p)
             }
 
@@ -98,7 +99,7 @@ export const useApi = () => ({
     },
     removeProduct: async (productRecordID: string) => {
 
-        const response = await base('Produtos').destroy([productRecordID], 
+        const response = await base('Produtos').destroy([productRecordID],
 
             function (err: any, deletedRecords: any) {
                 console.log(err);
