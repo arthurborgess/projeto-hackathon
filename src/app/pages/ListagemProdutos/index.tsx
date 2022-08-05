@@ -10,7 +10,7 @@ import Product from '../../components/Product'
 
 // funções e estilo
 import { utcDateFormat } from '../../helpers/dateHandler'
-import {Container, Top, Content} from './style'
+import { Container, Top, Content } from './style'
 
 // tipos
 import { CustomProductRecord } from '../../types/Record'
@@ -26,17 +26,17 @@ export function Listagem() {
 
     const loadProducts = () => {
 
-        if(context.user) {
+        if (context.user) {
 
             api.getProducts(context.user).then(records => {
 
                 let productArray = []
-    
+
                 for (let record of records) {
-    
+
                     let p: CustomProductRecord = {
-                        id: record.id, 
-                        name: record.product.nome, 
+                        id: record.id,
+                        name: record.product.nome,
                         creationDate: utcDateFormat(record.product.data_criacao)
                     }
                     productArray.push(p)
@@ -75,11 +75,11 @@ export function Listagem() {
                     products.map((product, index) => {
                         return (
                             <Product
-                            key={index}
-                            id={product.id}
-                            name={product.name}
-                            dateObj={product.creationDate}
-                            onRemove={remove}
+                                key={index}
+                                id={product.id}
+                                name={product.name}
+                                dateObj={product.creationDate}
+                                onRemove={remove}
                             />
                         )
                     })

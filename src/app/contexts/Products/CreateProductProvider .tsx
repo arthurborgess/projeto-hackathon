@@ -1,6 +1,5 @@
-import { createContext, ReactNode, useEffect, useState } from "react";
+import { createContext, ReactNode, useContext, useEffect, useState } from "react";
 import { GetAndSeterProductData, RepeatPatternInterface, typeEndOption, weekDaysTypes } from "../../types/Product";
-
 import { useApi } from "../../hooks/useApi";
 import { getUnixTime } from "date-fns";
 
@@ -58,7 +57,7 @@ export function CreateProdcutProvider({ children }: ProducContextProviderProps) 
 
   const handleCreateProduct = () => {
 
-    console.log(createProduct(getLoading, getErr, "0277a69cf889d21e9614966db20e858a", {
+    console.log(createProduct(getLoading, getErr, 'dsadsadasdsadsadas', {
       nome: itemName,
       tipo_de_repeticao: repeatPattern.type,
       frequencia_da_repeticao: repeatPattern.frequency,

@@ -1,4 +1,3 @@
-
 import { MD5 } from "crypto-js";
 import { createProductType } from "../types/Product";
 import { ProductRecord } from '../types/Record'
@@ -9,6 +8,7 @@ const base = new Airtable({
 }).base('app9wnjqsxjLcI8yq');
 
 const table = base('Usuarios');
+
 
 export const useApi = () => ({
 
