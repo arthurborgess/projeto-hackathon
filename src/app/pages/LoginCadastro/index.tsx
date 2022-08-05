@@ -25,7 +25,6 @@ export const LoginCadastro = () => {
                     navigate('/');
                 }
             }
-
         }
     }
 

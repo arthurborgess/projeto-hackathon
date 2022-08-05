@@ -6,25 +6,23 @@ import { CreateProdcutProvider } from "./contexts/Products/CreateProductProvider
 import { Route, Routes } from "react-router-dom";
 import { RequireAuth } from "./contexts/Auth/RequireAuth";
 
+
 export const App = () => {
   return (
     <CreateProdcutProvider>
-      <GlobalStyle />
-        <Routes>
+        <GlobalStyle/>
 
-          <Route 
-          path="/login" 
-          element={<LoginCadastro />} />
-
-          <Route 
-          path="/new" 
-          element={<CreateProductModal isOpen={true}/>} />
-
-          <Route 
-          path="/list" 
-          element={<Listagem />} />
-
-        </Routes>
+          <Routes>
+            <Route 
+              path="/login"
+              element={<LoginCadastro/>}/>
+            <Route 
+              path="/" 
+              element={<RequireAuth><CreateProductModal isOpen={true}/></RequireAuth>} />
+            <Route 
+              path="/list" 
+              element={<RequireAuth><Listagem /></RequireAuth>} />
+            </Routes>
     </CreateProdcutProvider>
   );
 }

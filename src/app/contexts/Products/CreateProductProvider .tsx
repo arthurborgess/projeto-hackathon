@@ -1,8 +1,11 @@
-import { createContext, ReactNode, useEffect, useState } from "react";
+import { createContext, ReactNode, useContext, useEffect, useState } from "react";
 import { GetAndSeterProductData, RepeatPatternInterface, typeEndOption, weekDaysTypes } from "../../types/Product";
 
 import { useApi } from "../../hooks/useApi";
 import { getUnixTime } from "date-fns";
+import { AuthContext } from "../Auth/AuthContext";
+import { User } from "../../types/User";
+
 
 
 interface ProducContextProviderProps {
@@ -43,11 +46,6 @@ export function CreateProdcutProvider ({children}: ProducContextProviderProps){
     }))
   },[repeatPattern.type, initialDate])
 
-  // useEffect(() => {
-  //   console.log(weekDays.realInitialDate)
-  //   console.log("status de erro: " , err)
-  // }, [err])
-
   function getLoading(loading: boolean){
     setIsLoading(loading)
   }
@@ -56,9 +54,8 @@ export function CreateProdcutProvider ({children}: ProducContextProviderProps){
     setErr(Err)
   }
 
-  const handleCreateProduct = () => {
-    
-    console.log( createProduct(getLoading, getErr,"0277a69cf889d21e9614966db20e858a",{
+  const handleCreateProduct = (user: User | null) => {
+    createProduct(getLoading, getErr, user,{
       nome: itemName,
       tipo_de_repeticao: repeatPattern.type,
       frequencia_da_repeticao: repeatPattern.frequency,
@@ -66,7 +63,7 @@ export function CreateProdcutProvider ({children}: ProducContextProviderProps){
       encerramento: endDate === null ? 0 : getUnixTime(endDate),
       data_criacao: getUnixTime(new Date()),
       data_primeira_ocorrencia: weekDays.realInitialDate === null ? 0 : getUnixTime(weekDays.realInitialDate) 
-    }))
+    })
   }
 
   const contextValue = { 

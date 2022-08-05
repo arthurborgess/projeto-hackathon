@@ -5,6 +5,7 @@ import { SetEndDate } from "./SetEndDate"
 import { WeekDays } from "./WeekDays"
 import { CreateProductContext } from "../../contexts/Products/CreateProductProvider "
 import { ButtonsWrapper, Cancel, Create, Modal ,Overlay, Title, Wrapper } from "./styled"
+import { AuthContext } from "../../contexts/Auth/AuthContext"
 
 interface CreateProdutModalProps {
   isOpen: boolean;
@@ -14,6 +15,7 @@ interface CreateProdutModalProps {
 
 export const CreateProductModal = ({isOpen, setModalOpen, toClose}: CreateProdutModalProps) => {
   const { isLoading ,handleCreateProduct ,itemName, setItemName , repeatPattern } = useContext(CreateProductContext)
+  const { user } = useContext(AuthContext)
 
   useEffect(() => {
   },[isLoading])
@@ -42,7 +44,7 @@ export const CreateProductModal = ({isOpen, setModalOpen, toClose}: CreateProdut
           <SetEndDate/>
           <ButtonsWrapper>
             <Cancel>Cancelar</Cancel>
-            <Create onClick={() => handleCreateProduct()}>Criar</Create>
+            <Create onClick={() => handleCreateProduct(user)}>Criar</Create>
           </ButtonsWrapper>
           {isLoading && (<p>carregando</p>)}
         </Modal>

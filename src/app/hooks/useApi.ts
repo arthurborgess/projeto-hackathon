@@ -2,6 +2,7 @@
 import { MD5 } from "crypto-js";
 import { createProductType } from "../types/Product";
 import {ProductRecord} from '../types/Record'
+import { User } from "../types/User";
 
 const Airtable = require('airtable');
 const base = new Airtable({ apiKey: process.env.REACT_APP_API_KEY 
@@ -41,7 +42,7 @@ export const useApi = () => ({
 
         return response[0].fields;
     },
-    createProduct: (getLoading: (status: boolean) => void, getErr:(err: any) => void, user: string , product: createProductType) => {
+    createProduct: (getLoading: (status: boolean) => void, getErr:(err: any) => void, user:User | null , product: createProductType) => {
         
         getLoading(true)
         base('Produtos').create([
