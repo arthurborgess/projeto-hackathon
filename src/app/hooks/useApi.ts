@@ -1,4 +1,5 @@
 import { MD5 } from "crypto-js";
+import { createProductType } from "../types/Product";
 
 const Airtable = require('airtable');
 
@@ -39,6 +40,37 @@ export const useApi = () => ({
 
         return response[0].fields;
     },
+    createProduct: (getLoading: (status: boolean) => void, getErr: (err: any) => void, user: string, product: createProductType) => {
+
+        getLoading(true)
+        base('Produtos').create([
+            {
+                "fields": {
+                    "id_usuario": user,
+                    "nome": product.nome,
+                    "tipo_de_repeticao": product.tipo_de_repeticao,
+                    "frequencia_da_repeticao": product.frequencia_da_repeticao,
+                    "repete_nos_dias": product.repete_nos_dias,
+                    "encerramento": product.encerramento,
+                    "data_criacao": product.data_criacao,
+                    "data_primeira_ocorrencia": product.data_primeira_ocorrencia
+                }
+            }
+        ],
+
+            function (err: any, records: any) {
+                if (err) {
+                    getLoading(false)
+                    getErr(err)
+                    return err
+                }
+                records.forEach(function (record: any) {
+                    getLoading(false)
+                    return records
+                });
+            });
+    },
+
     getProducts: async (userId: string) => {
 
         const response = await base('Produtos')
