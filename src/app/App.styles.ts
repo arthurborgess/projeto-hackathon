@@ -1,4 +1,5 @@
 import { createGlobalStyle } from "styled-components";
+import styled from "styled-components";
 
 export const GlobalStyle = createGlobalStyle`
   * {
@@ -7,4 +8,25 @@ export const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
     font-family: sans-serif;
   }
+
+  a {
+    text-decoration: none;
+    color: white;
+  } 
+
+  .actionBtn {
+    font-weight: bold;
+    padding: 8px;
+    cursor: pointer;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    opacity: 0.8;
+  }
+
+  .actionBtn:hover {
+    opacity: 1;
+  }
+
 `;
+

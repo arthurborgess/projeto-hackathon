@@ -1,8 +1,9 @@
+
 import { MD5 } from "crypto-js";
 import { createProductType } from "../types/Product";
+import {ProductRecord} from '../types/Record'
 
 const Airtable = require('airtable');
-
 const base = new Airtable({ apiKey: process.env.REACT_APP_API_KEY 
 }).base('app9wnjqsxjLcI8yq');
 
@@ -23,6 +24,7 @@ export const useApi = () => ({
     },
     
     login: async (email: string, cpf: string) => {
+        
         const currentUser = MD5(email + '-' + cpf).toString();
 
         var response = await table.select({
@@ -70,30 +72,38 @@ export const useApi = () => ({
           }); 
     },
     
-    getProducts: async (userId: string) => {
+    getProducts: async (userID: any) => {
 
-        const response = await base('Produtos')
-            .select({filterByFormula: `id_usuario = "${userId}"`})
+        const records = await base('Produtos')
+            .select({
+                filterByFormula: `id_usuario = "${userID}"`,
+                sort: [{field: 'data_criacao', direction: 'asc'}]
+            })
             .all()
 
         // se não tiver produtos
-        if(response.length === 0) {
+        if(records.length === 0) {
             return []
         }
         else {
             let products = []
 
-            for(let record of response) {
-                products.push({id: record.id, product: record.fields})
+            for(let record of records) {
+                let p: ProductRecord = {id: record.id, product: record.fields}
+                products.push(p)
             }
 
             return products
         }
     },
-    removeProduct: async (recordID: string) => {
+    removeProduct: async (productRecordID: string) => {
 
-        const response = await base('Produtos').destroy([recordID])
-    
-        console.log(response);
+        const response = await base('Produtos').destroy([productRecordID], 
+
+            function (err: any, deletedRecords: any) {
+                console.log(err);
+
+            }
+        )
     }
 });

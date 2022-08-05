@@ -4,6 +4,7 @@ import { Listagem } from './pages/ListagemProdutos'
 import { CreateProductModal } from "./components/CreateProduct";
 import { CreateProdcutProvider } from "./contexts/Products/CreateProductProvider ";
 import { Route, Routes } from "react-router-dom";
+import { RequireAuth } from "./contexts/Auth/RequireAuth";
 
 export const App = () => {
   return (
@@ -11,11 +12,17 @@ export const App = () => {
       <GlobalStyle />
         <Routes>
 
-          <Route path="/login" element={<LoginCadastro />} />
+          <Route 
+          path="/login" 
+          element={<LoginCadastro />} />
 
-          <Route path="/new" element={<CreateProductModal isOpen={true}/>} />
+          <Route 
+          path="/new" 
+          element={<CreateProductModal isOpen={true}/>} />
 
-          <Route path="/listagem" element={<Listagem />} />
+          <Route 
+          path="/list" 
+          element={<Listagem />} />
 
         </Routes>
     </CreateProdcutProvider>
