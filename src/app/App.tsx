@@ -1,9 +1,18 @@
+
+// react
+import { Route, Routes } from "react-router-dom";
+
+// estilos
 import { GlobalStyle } from "./App.styles";
+
+// componentes
 import { LoginCadastro } from "./pages/LoginCadastro";
 import { Listagem } from './pages/ListagemProdutos'
 import { CreateProductModal } from "./components/CreateProduct";
+import Calendario from "./pages/Calendario";
+
+// contextos
 import { CreateProdcutProvider } from "./contexts/Products/CreateProductProvider ";
-import { Route, Routes } from "react-router-dom";
 import { RequireAuth } from "./contexts/Auth/RequireAuth";
 
 export const App = () => {
@@ -23,8 +32,12 @@ export const App = () => {
           element={<CreateProductModal isOpen={true}/>} />
 
           <Route 
-          path="/list" 
+          path="/" 
           element={<Listagem />} />
+
+          <Route 
+          path="/calendar" 
+          element={<Calendario />} />
 
         </Routes>
     </CreateProdcutProvider>
