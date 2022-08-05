@@ -39,7 +39,6 @@ export const useApi = () => ({
 
         return response[0].fields;
     },
-
     createProduct: (getLoading: (status: boolean) => void, getErr:(err: any) => void, user: string , product: createProductType) => {
         
         getLoading(true)
@@ -70,7 +69,7 @@ export const useApi = () => ({
             });
           }); 
     },
-
+    
     getProducts: async (userId: string) => {
 
         const response = await base('Produtos')
