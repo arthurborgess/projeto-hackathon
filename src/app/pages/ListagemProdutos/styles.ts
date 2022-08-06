@@ -1,12 +1,20 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-
     display: flex;
+    padding: 20px;
     flex-direction: column;
     justify-content: center;
-    max-width: 650px;
+    width: 95%;
+    max-width: 900px;
     margin: auto;
+
+    svg {
+        cursor: pointer;
+        &:hover {
+            filter: invert(41%) sepia(95%) saturate(7476%) hue-rotate(354deg) brightness(105%) contrast(125%);
+        }
+    }
 `
 
 export const Top = styled.div`

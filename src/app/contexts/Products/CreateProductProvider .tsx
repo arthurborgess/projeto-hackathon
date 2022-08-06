@@ -1,6 +1,5 @@
 import { createContext, ReactNode, useContext, useEffect, useState } from "react";
 import { GetAndSeterProductData, RepeatPatternInterface, typeEndOption, weekDaysTypes } from "../../types/Product";
-
 import { useApi } from "../../hooks/useApi";
 import { getUnixTime } from "date-fns";
 import { User } from "../../types/User";
@@ -53,15 +52,16 @@ export function CreateProdcutProvider({ children }: ProducContextProviderProps) 
     setErr(Err)
   }
 
+
   const handleCreateProduct = (user: User | null) => {
-    createProduct(getLoading, getErr, user,{
+    createProduct(getLoading, getErr, user, {
       nome: itemName,
       tipo_de_repeticao: repeatPattern.type,
       frequencia_da_repeticao: repeatPattern.frequency,
       repete_nos_dias: weekDays.days.toString(),
       encerramento: endDate === null ? 0 : getUnixTime(endDate),
       data_criacao: getUnixTime(new Date()),
-      data_primeira_ocorrencia: weekDays.realInitialDate === null ? 0 : getUnixTime(weekDays.realInitialDate) 
+      data_primeira_ocorrencia: weekDays.realInitialDate === null ? 0 : getUnixTime(weekDays.realInitialDate)
     })
   }
 

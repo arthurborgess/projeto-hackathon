@@ -18,9 +18,6 @@ export const Container = styled.div`
         text-align: center;
     }
 
-    .removeBtn {
-        background-color: red;
-    }
 `
 
 

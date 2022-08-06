@@ -14,17 +14,19 @@ import Calendario from "./pages/Calendario";
 // contextos
 import { CreateProdcutProvider } from "./contexts/Products/CreateProductProvider ";
 import { RequireAuth } from "./contexts/Auth/RequireAuth";
+import { ListaCompleta } from "./pages/ListaCompleta";
 
 
 export const App = () => {
   return (
     <CreateProdcutProvider>
-        <GlobalStyle/>
-        <Routes>
-          <Route path="/login" element={<LoginCadastro />} />
-          <Route path="/" element={<RequireAuth><Listagem /></RequireAuth>} />
-          <Route path="/new" element={<RequireAuth><CreateProductModal isOpen={true} /></RequireAuth>} />
-        </Routes>
-      </CreateProdcutProvider>
+      <GlobalStyle />
+      <Routes>
+        <Route path="/login" element={<LoginCadastro />} />
+        <Route path="/" element={<RequireAuth><Listagem /></RequireAuth>} />
+        <Route path="/lista-completa" element={<RequireAuth><ListaCompleta /></RequireAuth>} />
+        <Route path="/new" element={<RequireAuth><CreateProductModal isOpen={true} /></RequireAuth>} />
+      </Routes>
+    </CreateProdcutProvider>
   );
 }
