@@ -1,5 +1,4 @@
 
-
 // hooks 
 import { useContext, useEffect, useState } from 'react'
 import { useApi } from '../../hooks/useApi'
@@ -22,16 +21,16 @@ import { Header } from '../../components/Header'
 export function Listagem() {
 
     let [products, setProducts] = useState<CustomProductRecord[]>([])
-    const context = useContext(AuthContext)
+    const currentUser = useContext(AuthContext).user
     const api = useApi()
 
     const loadProducts = () => {
 
-        if (context.user) {
+        if (currentUser) {
 
-            api.getProducts(context.user).then(records => {
+            api.getProducts(currentUser).then(records => {
 
-                let productArray = []
+                let productsArray = []
 
                 for (let record of records) {
 
@@ -40,10 +39,10 @@ export function Listagem() {
                         name: record.product.nome,
                         creationDate: utcDateFormat(record.product.data_criacao)
                     }
-                    productArray.push(p)
+                    productsArray.push(p)
                 }
 
-                setProducts(productArray)
+                setProducts(productsArray)
             })
         }
     }
@@ -51,7 +50,7 @@ export function Listagem() {
     useEffect(() => {
         loadProducts()
 
-    }, [])
+    }, [currentUser])
 
     const remove = (productRecordID: string) => {
         api.removeProduct(productRecordID).then(loadProducts)   
@@ -65,9 +64,7 @@ export function Listagem() {
                     <h1>Listagem</h1>
 
                     <button className='registerBtn actionBtn'>
-                        <Link to='/new'>
-                            Cadastrar
-                        </Link>
+                        <Link to='/new'>Cadastrar</Link>
                     </button>
                 </Top>
 

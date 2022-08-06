@@ -127,6 +127,5 @@ export const useApi = () => ({
     removeProduct: async (productRecordID: string) => {
         const response = await base('Produtos').destroy([productRecordID])
         return response
-
     }
 });

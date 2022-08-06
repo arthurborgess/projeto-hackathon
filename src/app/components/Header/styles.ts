@@ -19,12 +19,13 @@ export const HeaderContent = styled.div`
 
     .links {
         font-size: 1rem;
-        &:hover {
-            text-decoration: underline;
-        }
 
-        .link {
+        .link { 
             margin-left: 15px;
+        }
+        
+        .link:hover {
+            text-decoration: underline;
         }
     }
 `;

@@ -21,11 +21,18 @@ export const App = () => {
   return (
     <CreateProdcutProvider>
       <GlobalStyle />
+      
       <Routes>
         <Route path="/login" element={<LoginCadastro />} />
+
         <Route path="/" element={<RequireAuth><Listagem /></RequireAuth>} />
+
         <Route path="/lista-completa" element={<RequireAuth><ListaCompleta /></RequireAuth>} />
+
         <Route path="/new" element={<RequireAuth><CreateProductModal isOpen={true} /></RequireAuth>} />
+
+        <Route path="/calendar" element={<RequireAuth><Calendario /></RequireAuth>} />
+
       </Routes>
     </CreateProdcutProvider>
   );
