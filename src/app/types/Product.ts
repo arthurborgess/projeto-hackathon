@@ -1,3 +1,5 @@
+import { User } from "./User";
+
 export type FrequencyTypes =  "dia" | "semana" | "mes" | "ano" ;
 export type FrequencyValues = [FrequencyTypes]
 
@@ -14,7 +16,7 @@ export interface GetAndSeterProductData{
   setEndDate: React.Dispatch<React.SetStateAction<Date | null>>
   weekDays: weekDaysTypes
   setWeekDays: React.Dispatch<React.SetStateAction<weekDaysTypes>>,
-  handleCreateProduct: () => void,
+  handleCreateProduct: (user: User | null) => void,
   err: any,
   isLoading: boolean
 }

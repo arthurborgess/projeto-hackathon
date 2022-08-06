@@ -32,7 +32,7 @@ export const Modal = styled.div`
   height: fit-content;
   background-color: #ffffff;
 
-  padding: 6px;
+  padding: 16px;
 
   border-radius: 8px;
 
@@ -63,7 +63,7 @@ export const ButtonsWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 16px 32px;
+  padding: 16px 16px;
 `
 export const Cancel = styled.button`
   outline: none;

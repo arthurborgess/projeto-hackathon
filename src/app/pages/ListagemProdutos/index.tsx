@@ -10,13 +10,14 @@ import Product from '../../components/Product'
 
 // funções e estilo
 import { utcDateFormat } from '../../helpers/dateHandler'
-import { Container, Top, Content } from './style'
+import { Container, Top, Content } from './styles'
 
 // tipos
 import { CustomProductRecord } from '../../types/Record'
 
 // contexto
 import { AuthContext } from "../../contexts/Auth/AuthContext";
+import { Header } from '../../components/Header'
 
 export function Listagem() {
 
@@ -58,35 +59,36 @@ export function Listagem() {
     }
 
     return (
+        <>
+            <Header />
+            <Container>
+                <Top>
+                    <h1>Listagem</h1>
 
-        <Container>
-            <Top>
-                <h1>Listagem</h1>
+                    <button className='registerBtn actionBtn'>
+                        <Link to='/new'>
+                            Cadastrar
+                        </Link>
+                    </button>
+                </Top>
 
-                <button className='registerBtn actionBtn'>
-                    <Link to='/new'>
-                        Cadastrar
-                    </Link>
-                </button>
-            </Top>
-
-            <Content>
-                {
-                    products.map((product, index) => {
-                        return (
-                            <Product
-                                key={index}
-                                id={product.id}
-                                name={product.name}
-                                dateObj={product.creationDate}
-                                onRemove={remove}
-                            />
-                        )
-                    })
-                }
-            </Content>
-        </Container>
-
+                <Content>
+                    {
+                        products.map((product, index) => {
+                            return (
+                                <Product
+                                    key={index}
+                                    id={product.id}
+                                    name={product.name}
+                                    dateObj={product.creationDate}
+                                    onRemove={remove}
+                                />
+                            )
+                        })
+                    }
+                </Content>
+            </Container>
+        </>
     )
 
 }
