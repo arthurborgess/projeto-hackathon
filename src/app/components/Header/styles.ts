@@ -17,14 +17,23 @@ export const HeaderContent = styled.div`
     align-items: center;
     color: #FFFFFF;
 
-    .links {
-        font-size: 1rem;
-        &:hover {
-            text-decoration: underline;
+    @media (max-width: 1111px) {
+        #menu-icon {
+            width: 1.2rem;
+            height: 0.8rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
-
-        .link {
-            margin-left: 15px;
+        #menu-icon div {
+            width: 100%;
+            height: 2px;
+            background: #FFF;
+        }
+    }
+    @media (min-width: 1112px) {
+        #menu-icon {
+            display: none;
         }
     }
 `;
