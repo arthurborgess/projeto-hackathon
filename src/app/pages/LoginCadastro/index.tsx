@@ -1,6 +1,6 @@
 import { Container, Form, Input, SaveLogin, Submit } from "./styles";
 import { useContext, useState } from "react";
-import { InputCpf } from "../../components/InputCpf/InputCpf";
+import { InputCpf } from "../../components/InputCpf";
 import { AuthContext } from "../../contexts/Auth/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { cpfValidate } from "../../helpers/cpfValidate";
