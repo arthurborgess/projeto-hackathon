@@ -20,7 +20,7 @@ export const Content = styled.div`
     position: absolute;
     top: 15%;
     display: flex;
-    width: 300px;
+    width: 350px;
     height: 160px;
     border-radius: 4px;
     padding-bottom: 5px;
@@ -55,7 +55,7 @@ export const Top = styled.div`
 
 export const Body = styled.div`
     display: flex;
-    text-align: justify;
+    text-align: left;
     align-items: center;
     flex-grow: 1;
     padding: 5px;

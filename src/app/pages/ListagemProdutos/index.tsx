@@ -50,11 +50,10 @@ export function Listagem() {
     useEffect(() => {
         loadProducts()
 
-    }, [context])
+    }, [])
 
     const remove = (productRecordID: string) => {
-        api.removeProduct(productRecordID)
-        loadProducts()
+        api.removeProduct(productRecordID).then(loadProducts)   
     }
 
     return (
