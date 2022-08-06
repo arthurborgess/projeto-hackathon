@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useApi } from "../../hooks/useApi";
 import { User } from "../../types/User";
 import { AuthContext } from "./AuthContext";
@@ -43,6 +44,7 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
     }
 
     const logout = () => {
+        setUser(null);
         localStorage.removeItem('u');
         sessionStorage.removeItem('u');
     }

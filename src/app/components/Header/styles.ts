@@ -13,9 +13,14 @@ export const HeaderContent = styled.div`
     width: 95%;
     padding: 0 20px;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: center;
     color: #FFFFFF;
+
+    svg {
+        filter: invert(100%);
+        height: 100%;
+    }
 
     @media (max-width: 1111px) {
         #menu-icon {

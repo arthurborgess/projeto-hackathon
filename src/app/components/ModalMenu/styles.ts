@@ -11,6 +11,10 @@ export const Container = styled.div`
     display: flex;
     flex-direction: column;
 
+    #logout {
+        color: #FF0000;
+    }
+
     .close {
         font-size: 2rem;
         color: red;
