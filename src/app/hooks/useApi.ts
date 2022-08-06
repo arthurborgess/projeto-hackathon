@@ -61,7 +61,6 @@ export const useApi = () => ({
                 }
             }
         ],
-
             function (err: any, records: any) {
                 if (err) {
                     getLoading(false)
@@ -97,7 +96,6 @@ export const useApi = () => ({
                 
                 products.push(p)
             }
-
             return products
         }
     },
