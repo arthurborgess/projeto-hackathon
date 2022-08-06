@@ -44,6 +44,7 @@ export const ListHeaders = styled.div`
     padding: 5px;
     font-weight: bold;
 
+
     .header-product-name {
         flex-grow: 1;
         align-self: center;

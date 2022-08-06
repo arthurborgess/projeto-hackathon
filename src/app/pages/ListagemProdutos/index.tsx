@@ -5,53 +5,54 @@ import { useApi } from '../../hooks/useApi'
 
 // componentes
 import { Link } from 'react-router-dom'
-import Product from '../../components/Product'
+import ProductItem from '../../components/ProductItem'
+import ConfirmationModal from '../../components/ConfirmationModal'
 
 // funções e estilo
-import { utcDateFormat } from '../../helpers/dateHandler'
 import { Container, Top, Content, ListHeaders} from './styles'
 
 // tipos
-import { CustomProductRecord } from '../../types/Record'
+import { ProductRecord } from '../../types/Record'
+import { CustomProductObj } from '../../types/Product'
 
 // contexto
 import { AuthContext } from "../../contexts/Auth/AuthContext";
 import { Header } from '../../components/Header'
+import { User } from '../../types/User'
+
 
 export function Listagem() {
 
-    let [products, setProducts] = useState<CustomProductRecord[]>([])
+    let [products, setProducts] = useState<ProductRecord[]>([])
+    let [showConfirmationModal, setConfirmationModal] = useState(false)
+    let [currentProduct, setCurrentProduct] = useState<CustomProductObj>()
+    
     const currentUser = useContext(AuthContext).user
     const api = useApi()
 
-    const loadProducts = () => {
-
-        if (currentUser) {
-
-            api.getProducts(currentUser).then(records => {
-
-                let productsArray = records.map((record) => {
-
-                    let customProduct: CustomProductRecord = {
-                        id: record.id,
-                        name: record.product.nome,
-                        creationDate: utcDateFormat(record.product.data_criacao)
-                    }
-                    return customProduct
-                })
-                setProducts(productsArray)
-
-            })
-        }
+    const loadProducts = (user: User) => {
+        api.getProducts(user).then(setProducts) 
     }
 
     useEffect(() => {
-        loadProducts()
+        if(currentUser) { loadProducts(currentUser) }
+    }, [])
 
-    }, [currentUser])
+    // ao clicar no botão de remover do componente ProductItem
+    const removeHandler = (productObj: CustomProductObj) => {
+        setCurrentProduct(productObj)
+        setConfirmationModal(true)
+    }
 
-    const remove = (productRecordID: string) => {
-        api.removeProduct(productRecordID).then(loadProducts)   
+    // caso clique em algum dos botões do modal de confirmação
+    const confirmationHandler = (confirmation: boolean) => {
+        
+        if(confirmation && currentProduct && currentUser) {
+            api.removeProduct(currentProduct.id)
+            .then(resp => loadProducts(currentUser))
+           
+        }
+        setConfirmationModal(false)
     }
 
     return (
@@ -76,7 +77,6 @@ export function Listagem() {
 
                 {
                     products.length > 0 &&
-
                 <>
                     <ListHeaders>
                     <div className='header-creation-date'>Data de Criação</div>
@@ -87,21 +87,29 @@ export function Listagem() {
                     <Content>
 
                         {
-                            products.map((product, index) => {
+                            products.map((record, index) => {
                                 return (
-                                <Product
+                                <ProductItem
                                 key={index}
-                                id={product.id}
-                                name={product.name}
-                                dateObj={product.creationDate}
-                                onRemove={remove}
+                                record={record}
+                                onRemove={removeHandler}
                                 />)
                             })
                         }
                     </Content>
                 </>
                 }
+                {
+                    showConfirmationModal &&
+                    <ConfirmationModal
+                    show
+                    title='Confirmar'
+                    msg={`Deseja excluir o item ${currentProduct?.name}?`}
+                    onConfirmation={confirmationHandler}
+                />
+                }
             </Container>
+            
         </>
     )
 
