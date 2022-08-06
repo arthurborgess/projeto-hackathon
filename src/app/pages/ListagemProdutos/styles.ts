@@ -15,6 +15,10 @@ export const Container = styled.div`
             filter: invert(41%) sepia(95%) saturate(7476%) hue-rotate(354deg) brightness(105%) contrast(125%);
         }
     }
+
+    .noProductsMsg {
+        text-align: center;
+    }
 `
 
 export const Top = styled.div`
@@ -27,14 +31,37 @@ export const Top = styled.div`
 
     .registerBtn {
         align-self: flex-start;
-        background-color: #1A73FF;
+        background-color: #1A5FFF;
     }
     
 `
 
-export const Content = styled.div`
+export const Content = styled.table`
 
-    display: flex;
-    flex-direction: column;
+    border-collapse: collapse;
+
+    thead {
+        background-color: #1A5FFF;
+        color: #F9F9F9;
+    }
+
+    thead th {
+        padding: 10px;
+    }
+
+    tbody tr {
+        border-top: 1px solid black;
+        cursor: pointer;
+    }
+
+    tbody tr:hover {
+        background-color: #1A73FF;
+        color: #F9F9F9;
+    }
+
+    td, th {
+        text-align: center;
+        padding: 5px;
+    }
 
 `

@@ -125,13 +125,18 @@ export const useApi = () => ({
     },
 
     removeProduct: async (productRecordID: string) => {
+        const response = await base('Produtos').destroy([productRecordID])
+        return response
+    },
+    updateProduct: async (productRecordID: string, fields: any) => {
 
-        const response = await base('Produtos').destroy([productRecordID],
+        base('Produtos').update([{id: productRecordID, fields}],
 
-            function (err: any, deletedRecords: any) {
-                console.log(err);
-
+            function (err: any, records: any) {
+                if(err) {console.log(err);}
+            
             }
         )
+
     }
 });
