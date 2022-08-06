@@ -15,6 +15,10 @@ export const Container = styled.div`
             filter: invert(41%) sepia(95%) saturate(7476%) hue-rotate(354deg) brightness(105%) contrast(125%);
         }
     }
+
+    .noProductsMsg {
+        text-align: center;
+    }
 `
 
 export const Top = styled.div`
@@ -30,6 +34,22 @@ export const Top = styled.div`
         background-color: #1A73FF;
     }
     
+`
+
+export const ListHeaders = styled.div`
+
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 5px;
+    padding: 5px;
+    font-weight: bold;
+
+    .header-product-name {
+        flex-grow: 1;
+        align-self: center;
+        text-align: center;
+    }
+
 `
 
 export const Content = styled.div`

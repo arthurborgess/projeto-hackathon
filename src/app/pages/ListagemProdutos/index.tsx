@@ -9,7 +9,7 @@ import Product from '../../components/Product'
 
 // funções e estilo
 import { utcDateFormat } from '../../helpers/dateHandler'
-import { Container, Top, Content } from './styles'
+import { Container, Top, Content, ListHeaders} from './styles'
 
 // tipos
 import { CustomProductRecord } from '../../types/Record'
@@ -30,19 +30,17 @@ export function Listagem() {
 
             api.getProducts(currentUser).then(records => {
 
-                let productsArray = []
+                let productsArray = records.map((record) => {
 
-                for (let record of records) {
-
-                    let p: CustomProductRecord = {
+                    let customProduct: CustomProductRecord = {
                         id: record.id,
                         name: record.product.nome,
                         creationDate: utcDateFormat(record.product.data_criacao)
                     }
-                    productsArray.push(p)
-                }
-
+                    return customProduct
+                })
                 setProducts(productsArray)
+
             })
         }
     }
@@ -59,30 +57,50 @@ export function Listagem() {
     return (
         <>
             <Header />
+
             <Container>
                 <Top>
-                    <h1>Listagem</h1>
+                    <h3>Lista de Produtos</h3>
 
                     <button className='registerBtn actionBtn'>
                         <Link to='/new'>Cadastrar</Link>
                     </button>
-                </Top>
 
-                <Content>
-                    {
-                        products.map((product, index) => {
-                            return (
+                </Top>
+                {
+                    products.length === 0 && 
+                    <div className='noProductsMsg'>
+                        Nenhum produto cadastrado
+                    </div>
+                }
+
+                {
+                    products.length > 0 &&
+
+                <>
+                    <ListHeaders>
+                    <div className='header-creation-date'>Data de Criação</div>
+                    <div className='header-product-name'>Nome do Produto</div>
+                    <div className='header-actions'>Ações</div>
+                    </ListHeaders>
+
+                    <Content>
+
+                        {
+                            products.map((product, index) => {
+                                return (
                                 <Product
-                                    key={index}
-                                    id={product.id}
-                                    name={product.name}
-                                    dateObj={product.creationDate}
-                                    onRemove={remove}
-                                />
-                            )
-                        })
-                    }
-                </Content>
+                                key={index}
+                                id={product.id}
+                                name={product.name}
+                                dateObj={product.creationDate}
+                                onRemove={remove}
+                                />)
+                            })
+                        }
+                    </Content>
+                </>
+                }
             </Container>
         </>
     )
