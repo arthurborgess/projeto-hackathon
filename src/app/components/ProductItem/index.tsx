@@ -21,15 +21,17 @@ export default function ProductItem({ record, onRemove }: ProductItemProps) {
         <>
             <Container>
 
-                <div className='product-creation-date'>
+                <td className='product-creation-date'>
                     {`${date} ${month} ${year} (${day})`}
-                </div>
+                </td>
             
-                <div className='product-name'>{product.nome}</div>
+                <td className='product-name'>{product.nome}</td>
             
-                <RemoveButton clickHandler={
-                    () => onRemove({id, name: product.nome})
-                }/>
+                <td>
+                    <RemoveButton clickHandler={
+                        () => onRemove({id, name: product.nome})
+                    }/>
+                </td>
 
             </Container>
     

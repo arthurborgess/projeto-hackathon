@@ -24,7 +24,7 @@ export function CreateProdcutProvider({ children }: ProducContextProviderProps) 
     type: "dia"
   })
   const [weekDays, setWeekDays] = useState<weekDaysTypes>({ days: [], realInitialDate: null })
-  const [initialDate, setInitialDate] = useState<Date>(new Date)
+  const [initialDate, setInitialDate] = useState<Date>(new Date())
   const [endDate, setEndDate] = useState<Date | null>(null)
   const [typeEnd, setTypeEnd] = useState<typeEndOption>('never')
 
@@ -54,6 +54,7 @@ export function CreateProdcutProvider({ children }: ProducContextProviderProps) 
 
 
   const handleCreateProduct = (user: User | null) => {
+    
     createProduct(getLoading, getErr, user, {
       nome: itemName,
       tipo_de_repeticao: repeatPattern.type,

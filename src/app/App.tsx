@@ -10,6 +10,7 @@ import { LoginCadastro } from "./pages/LoginCadastro";
 import { Listagem } from './pages/ListagemProdutos'
 import { CreateProductModal } from "./components/CreateProduct";
 import Calendario from "./pages/Calendario";
+import EditProduct from "./components/EditProduct"
 
 // contextos
 import { CreateProdcutProvider } from "./contexts/Products/CreateProductProvider ";
@@ -29,9 +30,11 @@ export const App = () => {
 
         <Route path="/lista-completa" element={<RequireAuth><ListaCompleta /></RequireAuth>} />
 
-        <Route path="/new" element={<RequireAuth><CreateProductModal isOpen={true} /></RequireAuth>} />
+        <Route path="/new" element={<RequireAuth><CreateProductModal isOpen/></RequireAuth>} />
 
         <Route path="/calendar" element={<RequireAuth><Calendario /></RequireAuth>} />
+
+        <Route path="/edit" element={<RequireAuth><EditProduct /></RequireAuth>} />
 
       </Routes>
     </CreateProdcutProvider>

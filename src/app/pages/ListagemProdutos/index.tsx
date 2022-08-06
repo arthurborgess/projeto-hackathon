@@ -9,7 +9,7 @@ import ProductItem from '../../components/ProductItem'
 import ConfirmationModal from '../../components/ConfirmationModal'
 
 // funções e estilo
-import { Container, Top, Content, ListHeaders} from './styles'
+import { Container, Top, Content} from './styles'
 
 // tipos
 import { ProductRecord } from '../../types/Record'
@@ -60,6 +60,7 @@ export function Listagem() {
             <Header />
 
             <Container>
+
                 <Top>
                     <h3>Lista de Produtos</h3>
 
@@ -78,14 +79,19 @@ export function Listagem() {
                 {
                     products.length > 0 &&
                 <>
-                    <ListHeaders>
-                    <div className='header-creation-date'>Data de Criação</div>
-                    <div className='header-product-name'>Nome do Produto</div>
-                    <div className='header-actions'>Ações</div>
-                    </ListHeaders>
-
                     <Content>
 
+                        <thead>
+                            <tr>
+                                <th>Data de Criação</th>
+                                <th>Nome do Produto</th>
+                                <th>Ações</th>
+                            </tr>
+
+                      
+                        </thead>
+
+                        <tbody>
                         {
                             products.map((record, index) => {
                                 return (
@@ -96,6 +102,8 @@ export function Listagem() {
                                 />)
                             })
                         }
+                        </tbody>
+
                     </Content>
                 </>
                 }

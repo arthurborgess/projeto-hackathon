@@ -31,31 +31,37 @@ export const Top = styled.div`
 
     .registerBtn {
         align-self: flex-start;
-        background-color: #1A73FF;
+        background-color: #1A5FFF;
     }
     
 `
 
-export const ListHeaders = styled.div`
+export const Content = styled.table`
 
-    display: flex;
-    justify-content: space-around;
-    margin-bottom: 5px;
-    padding: 5px;
-    font-weight: bold;
+    border-collapse: collapse;
 
-
-    .header-product-name {
-        flex-grow: 1;
-        align-self: center;
-        text-align: center;
+    thead {
+        background-color: #1A5FFF;
+        color: #F9F9F9;
     }
 
-`
+    thead th {
+        padding: 10px;
+    }
 
-export const Content = styled.div`
+    tbody tr {
+        border-top: 1px solid black;
+        cursor: pointer;
+    }
 
-    display: flex;
-    flex-direction: column;
+    tbody tr:hover {
+        background-color: #1A73FF;
+        color: #F9F9F9;
+    }
+
+    td, th {
+        text-align: center;
+        padding: 5px;
+    }
 
 `

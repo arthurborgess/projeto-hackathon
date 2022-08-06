@@ -1,8 +1,11 @@
+
 import { useContext, useEffect } from "react"
-import { SetInitialDate } from "./SetInitialDate"
-import { RepeatEvery } from "./RepeatEvery"
-import { SetEndDate } from "./SetEndDate"
-import { WeekDays } from "./WeekDays"
+
+import { SetInitialDate } from "../CreateProduct/SetInitialDate"
+import { RepeatEvery } from "../CreateProduct/RepeatEvery"
+import { SetEndDate } from "../CreateProduct/SetEndDate"
+import { WeekDays } from "../CreateProduct/WeekDays"
+
 import { CreateProductContext } from "../../contexts/Products/CreateProductProvider "
 import { ButtonsWrapper, Cancel, Create, Modal, Overlay, Title, Wrapper } from "./styled"
 import { AuthContext } from "../../contexts/Auth/AuthContext"
@@ -15,7 +18,15 @@ interface CreateProdutModalProps {
 }
 
 export const CreateProductModal = ({isOpen, setModalOpen, toClose}: CreateProdutModalProps) => {
-  const { isLoading, handleCreateProduct, itemName, setItemName , repeatPattern } = useContext(CreateProductContext)
+
+  const { 
+    isLoading, 
+    handleCreateProduct, 
+    itemName, 
+    setItemName , 
+    repeatPattern 
+  } = useContext(CreateProductContext)
+
   const { user } = useContext(AuthContext)
 
   useEffect(() => {}, [isLoading])
@@ -30,24 +41,31 @@ export const CreateProductModal = ({isOpen, setModalOpen, toClose}: CreateProdut
       isOpen={isOpen}
     >
       <Wrapper>
+
         <Modal>
+
           <Title
             placeholder="Nome do produto"
             onChange={(e) => handleChangeName(e)}
             value={itemName}
           />
           <RepeatEvery />
+
           <SetInitialDate />
-          {repeatPattern.type === "semana" && (
-            <WeekDays />
-          )}
+
+          {repeatPattern.type === "semana" && (<WeekDays />)}
+
           <SetEndDate />
+
           <ButtonsWrapper>
             <Cancel>Cancelar</Cancel>
             <Create onClick={() => handleCreateProduct(user)}>Criar</Create>
           </ButtonsWrapper>
+
           {isLoading && (<p>carregando</p>)}
+
         </Modal>
+
       </Wrapper>
 
     </Overlay>
