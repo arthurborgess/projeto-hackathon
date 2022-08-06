@@ -42,6 +42,11 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
         return false;
     }
 
+    const logout = () => {
+        localStorage.removeItem('u');
+        sessionStorage.removeItem('u');
+    }
+
     const setToken = (token: string, saveLogin: boolean) => {
         if (saveLogin === true) {
             localStorage.setItem('u', token);
@@ -51,7 +56,7 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
     }
 
     return (
-        <AuthContext.Provider value={{ user, login }}>
+        <AuthContext.Provider value={{ user, login, logout }}>
             {children}
         </AuthContext.Provider>
     );

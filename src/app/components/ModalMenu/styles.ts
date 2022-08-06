@@ -15,6 +15,7 @@ export const Container = styled.div`
         font-size: 2rem;
         color: red;
         margin: .5rem 1rem;
+        cursor: pointer;
     }
     
     .line {
