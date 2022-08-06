@@ -1,7 +1,8 @@
 
 import { MD5 } from "crypto-js";
+import { getListOfDatesPerProduct } from "../helpers/nextOcurrenceDay";
 import { createProductType } from "../types/Product";
-import {ProductRecord} from '../types/Record'
+import {ProductRecord, ResOfProductRecords} from '../types/Record'
 import { User } from "../types/User";
 
 const Airtable = require('airtable');
@@ -74,9 +75,9 @@ export const useApi = () => ({
             });
     },
 
-    getProducts: async (userID: any) => {
+    getProducts: async (userID: any, numberOfViews?:number) => {
 
-        const records = await base('Produtos')
+        const records:ResOfProductRecords[] = await base('Produtos')
             .select({
                 filterByFormula: `id_usuario = "${userID}"`,
                 sort: [{ field: 'data_criacao', direction: 'asc' }]
@@ -88,10 +89,12 @@ export const useApi = () => ({
             return []
         }
         else {
-            let products = []
+            let products: ProductRecord[] = []
 
-            for (let record of records) {
-                let p: ProductRecord = { id: record.id, product: record.fields }
+            for(let record  of records) {
+                let daysInlist = getListOfDatesPerProduct({id: record.id, product:record.fields}, numberOfViews? numberOfViews : 6)
+                let p: ProductRecord = { id: record.id, product:{...record.fields, dias_em_listas: daysInlist}}
+                
                 products.push(p)
             }
 
@@ -108,4 +111,4 @@ export const useApi = () => ({
             }
         )
     }
-});
+})

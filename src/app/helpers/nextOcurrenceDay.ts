@@ -1,5 +1,8 @@
-import { addDays, addMonths, addWeeks, addYears, getDay, nextDay } from "date-fns";
+import { Console } from "console";
+import { addDays, addMonths, addWeeks, addYears, eachDayOfInterval, fromUnixTime, getDay, getDaysInYear, nextDay } from "date-fns";
+import Product from "../components/Product";
 import { FrequencyTypes } from "../types/Product";
+import { ProductRecord } from "../types/Record";
 
 export interface getNextOcurrencyDayRes {
   initialDate: Date ;
@@ -9,11 +12,9 @@ export interface getNextOcurrencyDayRes {
 export function getNextValidDay(days: number[], startDate:Date): Date{
 
   let firstAvaibleDay: number  = verifyNextFirstOcurrencyOf(days, startDate)
-  console.log(firstAvaibleDay)
   //@ts-expect-error
   let finalDate = nextDay(startDate , firstAvaibleDay)
 
-  
   if(getDay(startDate) === firstAvaibleDay){
     return startDate
   } 
@@ -112,3 +113,91 @@ export function getEndDate(startDate:Date, type: FrequencyTypes, frequency: numb
   return null
 }
 
+export function getListOfDatesPerProduct(record:ProductRecord, stopFecthValueInDays: number): Date[] | "every" | null{
+
+  const product = record.product 
+
+  const intervalCreateDateToNow = eachDayOfInterval({start: product.data_criacao, end: new Date()})
+  const limitFecthFoward = intervalCreateDateToNow.length + stopFecthValueInDays
+
+  let repeatDaysArr: number[] =  product.repete_nos_dias !== undefined ? JSON.parse("[" + product.repete_nos_dias + "]") : null
+
+  //responsável por verificar qual tipo de adiçao sera realizada
+  const add = (arr: Date[] = [], repeatPatter: FrequencyTypes, frequency: number) => {
+    if (repeatPatter === "dia") return addDays(arr[arr.length - 1], frequency)
+    if (repeatPatter === "semana") return addWeeks(arr[arr.length - 1], frequency)
+    if (repeatPatter === "mes") return addMonths(arr[arr.length - 1], frequency )
+    if (repeatPatter === "ano") return addYears(arr[arr.length - 1], frequency)
+    return new Date()
+  }
+  
+  if(product.frequencia_da_repeticao === 1 && product.tipo_de_repeticao === "dia"){
+    return 'every'
+  }
+  
+  //Verifica se é do tipo semana com apenas um dai selecionado, ou qualquer outro pattern diferente de semana com multiplos dias
+  if(repeatDaysArr && repeatDaysArr.length === 1 || repeatDaysArr === null){
+    let i = 0
+    let dateArray: Date[] = []
+    dateArray.push(fromUnixTime(product.data_criacao))
+    while(i < limitFecthFoward){
+      if( addDays(dateArray[dateArray.length -1], 1 ) > fromUnixTime(product.encerramento) && product.encerramento) break 
+      dateArray.push(add(dateArray, product.tipo_de_repeticao, product.frequencia_da_repeticao))
+      i ++
+    }
+    return dateArray
+  }
+
+  const firstOcurrencyOfFirstWeek = getDay(fromUnixTime(product.data_criacao))
+  let isfirstOcurrencyInOutherWeeks:boolean = firstOcurrencyOfFirstWeek === repeatDaysArr[0] ? true : false
+  let isLastOcurrenyInWeeks = repeatDaysArr[repeatDaysArr.length - 1] === firstOcurrencyOfFirstWeek && true
+
+  //verifica os próximos dias até o fim da semana
+  let arrayInitialWeekDays: number[] = []
+  let arrayInitialWeekDate: Date[] = []
+  if(!isfirstOcurrencyInOutherWeeks && !isLastOcurrenyInWeeks){
+    arrayInitialWeekDays.push(firstOcurrencyOfFirstWeek)
+    repeatDaysArr.forEach( day => {
+      if(day > firstOcurrencyOfFirstWeek){
+        arrayInitialWeekDays.push(day)   
+      }  
+    })
+  }
+
+  if(isLastOcurrenyInWeeks)(
+    arrayInitialWeekDays.push(firstOcurrencyOfFirstWeek)
+  )
+
+  arrayInitialWeekDate.push(getNextValidDay([firstOcurrencyOfFirstWeek], fromUnixTime(product.data_criacao)))
+  arrayInitialWeekDays.map( day => {
+    if(arrayInitialWeekDays[0] !== day ){
+      arrayInitialWeekDate.push(getNextValidDay([firstOcurrencyOfFirstWeek], fromUnixTime(product.data_criacao)))
+    }
+  })
+
+  let i = 0;
+  let finalArrayDate = arrayInitialWeekDate
+  while(i < limitFecthFoward){
+    const nextDate = getNextValidDay(repeatDaysArr,addDays(finalArrayDate[finalArrayDate.length - 1],1))
+    if(nextDate < fromUnixTime(product.encerramento)){
+      finalArrayDate.push(nextDate)
+    }else break
+    i++
+  }
+  
+  return finalArrayDate
+}
+
+export function getCalendarDays(startAt: Date, numberOfViews:number){
+  const dateArray = []
+  dateArray.push(startAt)
+
+  let i = 0
+
+  while(i < numberOfViews){
+    dateArray.push(addDays(dateArray[dateArray.length - 1], 1))
+    i ++
+  }
+
+  return dateArray
+}

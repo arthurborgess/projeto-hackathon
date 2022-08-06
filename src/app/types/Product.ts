@@ -35,7 +35,7 @@ export interface weekDaysTypes {
 
 export interface createProductType {
   nome: string,
-  tipo_de_repeticao: string,
+  tipo_de_repeticao: FrequencyTypes,
   frequencia_da_repeticao: number,
   repete_nos_dias: string,
   encerramento: EpochTimeStamp,
