@@ -8,10 +8,7 @@ import { getCalendarDays } from "../../helpers/nextOcurrenceDay"
 export const Calendar = () => {
   
   const { user } = useContext(AuthContext)
-  const {allProducts, loadProducts, loading} = useContext(ProductContext)
-
-  const [ startDate, setStartDate ] = useState<Date>(new Date())
-  const [ numberOfViews, setNumberOfViews ] = useState<number>(6)
+  const { startDate, setStartDate, setNumberOFViews, numberOfViews , loadProducts, loading} = useContext(ProductContext)
   
   function handleNextPeriod(){
     setStartDate(addDays(startDate, 1))
@@ -23,24 +20,18 @@ export const Calendar = () => {
     setStartDate(new Date())
   }
 
-  console.log(allProducts)
-
-
   useEffect(() => {
-    loadProducts(user, numberOfViews)
+    loadProducts(user, 365 + numberOfViews)
   },[])
-
-  useEffect(() => {
-  },[loading])
   
   const dateArray = getCalendarDays(startDate, numberOfViews)
-    
+  
   return (
     <>
       {loading? (
         <div>Loading</div>
       ) : (
-        <CalendarWrapper allProducts={allProducts} dateArray={dateArray}/>
+        <CalendarWrapper dateArray={dateArray}/>
       )}
       <button onClick={() => handlePrevPeriod()}>Anterior</button>
       <button onClick={() => handleNow()}>Hoje</button>

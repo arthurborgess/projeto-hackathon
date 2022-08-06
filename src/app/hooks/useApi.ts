@@ -1,4 +1,3 @@
-
 import { MD5 } from "crypto-js";
 import { getListOfDatesPerProduct } from "../helpers/nextOcurrenceDay";
 import { createProductType } from "../types/Product";
@@ -11,6 +10,7 @@ const base = new Airtable({
 }).base('app9wnjqsxjLcI8yq');
 
 const table = base('Usuarios');
+
 
 export const useApi = () => ({
 
@@ -45,7 +45,7 @@ export const useApi = () => ({
         return response[0].fields;
     },
 
-    createProduct: (getLoading: (status: boolean) => void, getErr:(err: any) => void, user:User | null , product: createProductType) => {
+    createProduct: (getLoading: (status: boolean) => void, getErr: (err: any) => void, user: User | null, product: createProductType) => {
         getLoading(true)
         base('Produtos').create([
             {
@@ -101,14 +101,45 @@ export const useApi = () => ({
             return products
         }
     },
+
+    getProductsByData: async (userID: any) => {
+
+        const records = await base('Produtos')
+            .select({
+                filterByFormula: `id_usuario = "${userID}"`,
+                sort: [{ field: 'data_criacao', direction: 'asc' }]
+            })
+            .all()
+
+        // se não tiver produtos
+        if (records.length === 0) {
+            return []
+        }
+        else {
+            let products = []
+
+            for (let record of records) {
+                let p: ProductRecord = { id: record.id, product: record.fields }
+                products.push(p)
+            }
+
+            return products;
+        }
+    },
+
     removeProduct: async (productRecordID: string) => {
+        const response = await base('Produtos').destroy([productRecordID])
+        return response
+    },
+    updateProduct: async (productRecordID: string, fields: any) => {
 
-        const response = await base('Produtos').destroy([productRecordID],
+        base('Produtos').update([{id: productRecordID, fields}],
 
-            function (err: any, deletedRecords: any) {
-                console.log(err);
-
+            function (err: any, records: any) {
+                if(err) {console.log(err);}
+            
             }
         )
+
     }
 })

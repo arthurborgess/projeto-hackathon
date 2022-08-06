@@ -42,3 +42,8 @@ export interface createProductType {
   data_criacao: EpochTimeStamp,
   data_primeira_ocorrencia: EpochTimeStamp
 }
+
+export interface CustomProductObj {
+  id: string,
+  name: string
+}

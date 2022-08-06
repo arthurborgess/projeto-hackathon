@@ -41,7 +41,19 @@ export interface ResOfProductRecords {
 export interface ProductProviderTypes {
     allProducts: ProductRecord[] | null,
     loading: boolean,
-    loadProducts: (user: User | null, numberOfViews: number) => void
+    loadProducts: (user: User| null, numberOfViews: number) => void,
+    lists: ListPerDayTypes[] | undefined,
+    setLists: React.Dispatch<React.SetStateAction<ListPerDayTypes[] | undefined>>
+    // setUser: React.Dispatch<React.SetStateAction<User | null>>,
+    numberOfViews: number,
+    setNumberOFViews: React.Dispatch<React.SetStateAction<number>>
+    startDate: Date,
+    setStartDate: React.Dispatch<React.SetStateAction<Date>>
+}
+
+export interface ListPerDayTypes {
+    date: Date,
+    Data: ProductRecord[] | null, 
 }
 
 

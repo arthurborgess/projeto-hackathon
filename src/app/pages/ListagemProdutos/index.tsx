@@ -1,92 +1,124 @@
 
-
 // hooks 
 import { useContext, useEffect, useState } from 'react'
 import { useApi } from '../../hooks/useApi'
 
 // componentes
 import { Link } from 'react-router-dom'
-import Product from '../../components/Product'
+import ProductItem from '../../components/ProductItem'
+import ConfirmationModal from '../../components/ConfirmationModal'
 
 // funções e estilo
-import { utcDateFormat } from '../../helpers/dateHandler'
-import {Container, Top, Content} from './style'
+import { Container, Top, Content} from './styles'
 
 // tipos
-import { CustomProductRecord } from '../../types/Record'
+import { ProductRecord } from '../../types/Record'
+import { CustomProductObj } from '../../types/Product'
 
 // contexto
 import { AuthContext } from "../../contexts/Auth/AuthContext";
+import { Header } from '../../components/Header'
+import { User } from '../../types/User'
+
 
 export function Listagem() {
 
-    let [products, setProducts] = useState<CustomProductRecord[]>([])
-    const context = useContext(AuthContext)
+    let [products, setProducts] = useState<ProductRecord[]>([])
+    let [showConfirmationModal, setConfirmationModal] = useState(false)
+    let [currentProduct, setCurrentProduct] = useState<CustomProductObj>()
+    
+    const currentUser = useContext(AuthContext).user
     const api = useApi()
 
-    const loadProducts = () => {
-
-        if(context.user) {
-
-            api.getProducts(context.user).then(records => {
-
-                let productArray = []
-    
-                for (let record of records) {
-    
-                    let p: CustomProductRecord = {
-                        id: record.id, 
-                        name: record.product.nome, 
-                        creationDate: utcDateFormat(record.product.data_criacao)
-                    }
-                    productArray.push(p)
-                }
-
-                setProducts(productArray)
-            })
-        }
+    const loadProducts = (user: User) => {
+        api.getProducts(user).then(setProducts) 
     }
 
     useEffect(() => {
-        loadProducts()
+        if(currentUser) { loadProducts(currentUser) }
+    }, [])
 
-    }, [context])
+    // ao clicar no botão de remover do componente ProductItem
+    const removeHandler = (productObj: CustomProductObj) => {
+        setCurrentProduct(productObj)
+        setConfirmationModal(true)
+    }
 
-    const remove = (productRecordID: string) => {
-        api.removeProduct(productRecordID)
-        loadProducts()
+    // caso clique em algum dos botões do modal de confirmação
+    const confirmationHandler = (confirmation: boolean) => {
+        
+        if(confirmation && currentProduct && currentUser) {
+            api.removeProduct(currentProduct.id)
+            .then(resp => loadProducts(currentUser))
+           
+        }
+        setConfirmationModal(false)
     }
 
     return (
+        <>
+            <Header />
 
-        <Container>
-            <Top>
-                <h1>Listagem</h1>
+            <Container>
 
-                <button className='registerBtn actionBtn'>
-                    <Link to='/new'>
-                        Cadastrar
-                    </Link>
-                </button>
-            </Top>
+                <Top>
+                    <h3>Lista de Produtos</h3>
 
-            <Content>
+                    <button className='registerBtn actionBtn'>
+                        <Link to='/new'>Cadastrar</Link>
+                    </button>
+
+                </Top>
                 {
-                    products.map((product, index) => {
-                        return (
-                            <Product
-                            key={index}
-                            id={product.id}
-                            name={product.name}
-                            dateObj={product.creationDate}
-                            onRemove={remove}
-                            />
-                        )
-                    })
+                    products.length === 0 && 
+                    <div className='noProductsMsg'>
+                        Nenhum produto cadastrado
+                    </div>
                 }
-            </Content>
-        </Container>
 
+                {
+                    products.length > 0 &&
+                <>
+                    <Content>
+
+                        <thead>
+                            <tr>
+                                <th>Data de Criação</th>
+                                <th>Nome do Produto</th>
+                                <th>Ações</th>
+                            </tr>
+
+                      
+                        </thead>
+
+                        <tbody>
+                        {
+                            products.map((record, index) => {
+                                return (
+                                <ProductItem
+                                key={index}
+                                record={record}
+                                onRemove={removeHandler}
+                                />)
+                            })
+                        }
+                        </tbody>
+
+                    </Content>
+                </>
+                }
+                {
+                    showConfirmationModal &&
+                    <ConfirmationModal
+                    show
+                    title='Confirmar'
+                    msg={`Deseja excluir o item ${currentProduct?.name}?`}
+                    onConfirmation={confirmationHandler}
+                />
+                }
+            </Container>
+            
+        </>
     )
 
 }

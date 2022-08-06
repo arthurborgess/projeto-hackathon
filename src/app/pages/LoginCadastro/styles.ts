@@ -11,7 +11,8 @@ export const Form = styled.form`
     top: 50%;
     position: absolute;
     transform translate(-50%, -50%);
-    width: 400px;
+    width: 95%;
+    max-width: 400px;
     border-radius: 10px;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
     background-color: #FFF;
