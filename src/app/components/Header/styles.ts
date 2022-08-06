@@ -13,19 +13,32 @@ export const HeaderContent = styled.div`
     width: 95%;
     padding: 0 20px;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: center;
     color: #FFFFFF;
 
-    .links {
-        font-size: 1rem;
+    svg {
+        filter: invert(100%);
+        height: 100%;
+    }
 
-        .link { 
-            margin-left: 15px;
+    @media (max-width: 1111px) {
+        #menu-icon {
+            width: 1.2rem;
+            height: 0.8rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
-        
-        .link:hover {
-            text-decoration: underline;
+        #menu-icon div {
+            width: 100%;
+            height: 2px;
+            background: #FFF;
         }
     }
-`
+    @media (min-width: 1112px) {
+        #menu-icon {
+            display: none;
+        }
+    }
+`;
