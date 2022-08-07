@@ -7,6 +7,7 @@ import { useApi } from '../../hooks/useApi'
 import { Link } from 'react-router-dom'
 import ProductItem from '../../components/ProductItem'
 import ConfirmationModal from '../../components/ConfirmationModal'
+import EditProductModal from '../../components/EditProduct'
 
 // funções e estilo
 import { Container, Top, Content} from './styles'
@@ -21,10 +22,12 @@ import { Header } from '../../components/Header'
 import { User } from '../../types/User'
 
 
+
 export function Listagem() {
 
     let [products, setProducts] = useState<ProductRecord[]>([])
     let [showConfirmationModal, setConfirmationModal] = useState(false)
+    let [showEditModal, setEditModal] = useState(true)
     let [currentProduct, setCurrentProduct] = useState<CustomProductObj>()
     
     const currentUser = useContext(AuthContext).user
@@ -115,6 +118,15 @@ export function Listagem() {
                     msg={`Deseja excluir o item ${currentProduct?.name}?`}
                     onConfirmation={confirmationHandler}
                 />
+                }
+
+                {
+                    showEditModal &&
+                    <EditProductModal
+                    startProduct={currentProduct}
+                    isOpen
+                     />
+
                 }
             </Container>
             

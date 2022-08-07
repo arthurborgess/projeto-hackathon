@@ -129,9 +129,9 @@ export const useApi = () => ({
         const response = await base('Produtos').destroy([productRecordID])
         return response
     },
-    updateProduct: async (productRecordID: string, fields: any) => {
+    updateProduct: async (productRecord: ResOfProductRecords) => {
 
-        base('Produtos').update([{id: productRecordID, fields}],
+        base('Produtos').update([productRecord],
 
             function (err: any, records: any) {
                 if(err) {console.log(err);}
