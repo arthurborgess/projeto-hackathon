@@ -22,7 +22,6 @@ import EditProduct from "./components/EditProduct";
 export const App = () => {
   return (
     <CreateProdcutProvider>
-
       <ProdcutProvider>
         <GlobalStyle />
         <Routes>
@@ -31,7 +30,6 @@ export const App = () => {
           <Route path="/" element={<RequireAuth><Listagem /></RequireAuth>} />
           <Route path="/new" element={<RequireAuth><CreateProductModal isOpen={true} /></RequireAuth>} />
           <Route path="/lista-completa" element={<RequireAuth><ListaCompleta /></RequireAuth>} />
-
         </Routes>
       </ProdcutProvider>
     </CreateProdcutProvider>

@@ -43,6 +43,7 @@ export const Container = styled.div`
         flex-direction: row;
         justify-content: flex-end;
         align-items: center;
+        flex: 1;
 
         .close {
             display: none;

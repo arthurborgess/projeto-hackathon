@@ -22,6 +22,7 @@ export const ModalMenu = ({ onClose }: Props) => {
             <div className="close" onClick={onClose}>⨯</div>
             <Link className="link" to="/">Lista de produtos</Link>
             <Link className="link" to="/lista-completa">Lista completa</Link>
+            <Link className="link" to="/calendar">Calendário</Link>
             <Link className="link" id="logout" to="" onClick={hangleLogout}>Sair</Link>
         </Container>
     );
