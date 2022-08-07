@@ -1,6 +1,5 @@
-import { addDays } from "date-fns/esm";
-import { createContext, ReactNode, useContext, useEffect, useState } from "react";
-import { listGenerator } from "../../helpers/gerenatesLists";
+import { createContext, ReactNode, useEffect, useState } from "react";
+import { createColumnsData } from "../../helpers/callendar";
 import { useApi } from "../../hooks/useApi";
 import { ListPerDayTypes, ProductProviderTypes, ProductRecord } from "../../types/Record";
 import { User } from "../../types/User";
@@ -16,9 +15,9 @@ export function ProdcutProvider({ children }: ProductProviderProps){
   const api = useApi()
   const [ allProducts, setAllProducts ] = useState<ProductRecord[] | null>(null)
   const [ loading, setLoading] = useState<boolean>(false)
-  const [ numberOfViews, setNumberOFViews ] = useState<number>(7)
+  const [ numberOfColumns, setNumberOfColumns ] = useState<number>(7)
   const [ startDate, setStartDate ] = useState<Date>(new Date())
-  const [ lists, setLists ] = useState<ListPerDayTypes[]>()
+  const [ columnsData , setColumnsData ] = useState<ListPerDayTypes[]>()
 
   const loadProducts = (user:User | null, numberOfViews: number) => {
     setLoading(true)    
@@ -29,26 +28,28 @@ export function ProdcutProvider({ children }: ProductProviderProps){
       })
     }
 
-  useEffect(() => {
-    const currentList = listGenerator(allProducts, numberOfViews, startDate)
-    setLists(currentList)
+  useEffect(()=> {
+    if(allProducts !== null){
+      const actualColumns = createColumnsData(allProducts,startDate, numberOfColumns)
+      setColumnsData(actualColumns)
+    }
   },[allProducts])
 
   useEffect(() => {
-    const currentList = listGenerator(allProducts, numberOfViews, startDate)
-    setLists(currentList)
-    console.log(currentList)
-    console.log(startDate)
-  },[startDate, numberOfViews])
+    if(allProducts !== null){
+      const actualColumns = createColumnsData(allProducts,startDate, numberOfColumns)
+      setColumnsData(actualColumns)
+    }
+  },[numberOfColumns, startDate])
 
   const contextValue = {
     allProducts,
     loading,
     loadProducts,
-    numberOfViews,
-    setNumberOFViews,
-    setLists,
-    lists,
+    numberOfColumns, 
+    setNumberOfColumns,
+    columnsData , 
+    setColumnsData,
     startDate, 
     setStartDate
   }

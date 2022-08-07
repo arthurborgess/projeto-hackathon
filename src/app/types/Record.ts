@@ -42,11 +42,10 @@ export interface ProductProviderTypes {
     allProducts: ProductRecord[] | null,
     loading: boolean,
     loadProducts: (user: User| null, numberOfViews: number) => void,
-    lists: ListPerDayTypes[] | undefined,
-    setLists: React.Dispatch<React.SetStateAction<ListPerDayTypes[] | undefined>>
-    // setUser: React.Dispatch<React.SetStateAction<User | null>>,
-    numberOfViews: number,
-    setNumberOFViews: React.Dispatch<React.SetStateAction<number>>
+    columnsData: ListPerDayTypes[] | undefined,
+    setColumnsData: React.Dispatch<React.SetStateAction<ListPerDayTypes[] | undefined>>,
+    numberOfColumns:number,  
+    setNumberOfColumns: React.Dispatch<React.SetStateAction<number>>,
     startDate: Date,
     setStartDate: React.Dispatch<React.SetStateAction<Date>>
 }

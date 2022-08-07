@@ -28,7 +28,6 @@ export const ListaCompleta = () => {
             <Header />
             <Container>
                 <Title>Lista completa</Title>
-
                 {
                 products.map(record => (
 
@@ -39,7 +38,6 @@ export const ListaCompleta = () => {
                             onChange={() => setIsDone(current => !current)}
                         />
                     </Product>
-
                 ))}
             </Container>
         </>
