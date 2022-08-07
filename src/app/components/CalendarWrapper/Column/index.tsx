@@ -1,5 +1,6 @@
-import { format } from 'date-fns';
+import { format, getUnixTime } from 'date-fns';
 import { pt } from 'date-fns/locale';
+import { useNavigate } from 'react-router-dom';
 import { ListPerDayTypes } from "../../../types/Record";
 import { Item } from "../Item";
 import { Container, DateField } from './styles';
@@ -12,6 +13,13 @@ interface ColumnProps{
 
 
 export function Column({productsPerDay}:ColumnProps) {
+
+  const navigate = useNavigate()
+
+  function handleGoToCompleteList(){
+    navigate("/lista-completa/" +  getUnixTime(productsPerDay.date).toString())
+  }
+
   return (
     <>
       {!productsPerDay ? (
@@ -28,7 +36,8 @@ export function Column({productsPerDay}:ColumnProps) {
           ) : (
             <div>nao existe</div>
           )}
-        </Container>
+          <button onClick={() => handleGoToCompleteList()}>Ver listagem completa</button>
+        </Container> 
       )}
     </>
   )

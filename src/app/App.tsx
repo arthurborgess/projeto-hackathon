@@ -30,7 +30,7 @@ export const App = () => {
           <Route path="/calendar" element={<RequireAuth><Calendar /></RequireAuth>} />
           <Route path="/" element={<RequireAuth><Listagem /></RequireAuth>} />
           <Route path="/new" element={<RequireAuth><CreateProductModal isOpen={true} /></RequireAuth>} />
-          <Route path="/lista-completa" element={<RequireAuth><ListaCompleta /></RequireAuth>} />
+          <Route path="/lista-completa/:timestamp" element={<RequireAuth><ListaCompleta /></RequireAuth>} />
 
         </Routes>
       </ProdcutProvider>
