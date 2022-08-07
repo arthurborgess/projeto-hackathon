@@ -17,7 +17,7 @@ export const Container = styled.div`
 
     .close {
         font-size: 2rem;
-        color: red;
+        color: #333;
         margin: .5rem 1rem;
         cursor: pointer;
     }

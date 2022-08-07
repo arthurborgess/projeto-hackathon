@@ -67,6 +67,7 @@ export const Submit = styled.button`
     cursor: pointer;
     font-size: 1.1rem;
     transition: all 0.3s;
+    text-align: center;
 
     &:hover {
         background-color: #1A73FF;
