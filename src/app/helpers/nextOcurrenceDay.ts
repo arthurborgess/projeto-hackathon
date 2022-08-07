@@ -134,19 +134,6 @@ export function getListOfDatesPerProduct(record: ProductRecord, stopFecthValueIn
     return 'every'
   }
 
-  // if(product.frequencia_da_repeticao !== 1 && product.tipo_de_repeticao === "dia"){
-  //   let i = 0
-  //   let dateArray: Date[] = []
-  //   dateArray.push(fromUnixTime(product.data_criacao))
-  //   while(i < limitFecthFoward){
-  //     if( addDays(dateArray[dateArray.length -1], 1 ) > fromUnixTime(product.encerramento) && product.encerramento) break 
-  //     dateArray.push(add(dateArray, product.tipo_de_repeticao, product.frequencia_da_repeticao))
-  //     i ++
-  //   }
-  //   return dateArray
-  // }
-
-  //Verifica se é do tipo semana com apenas um dai selecionado, ou qualquer outro pattern diferente de semana com multiplos dias
   if (repeatDaysArr && repeatDaysArr.length === 1 || repeatDaysArr === null) {
     let i = 0
     let dateArray: Date[] = []
