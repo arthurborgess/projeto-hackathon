@@ -28,14 +28,26 @@ export const Top = styled.div`
     align-items: center;
     padding-top: 20px;
     padding-bottom: 10px;
+    
+    .actionBtn {
+        font-weight: bold;
+        padding: 8px;
+        cursor: pointer;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        opacity: 0.8;
+    }
+    
+    .actionBtn:hover {
+        opacity: 1;
+    }
 
     .registerBtn {
         align-self: flex-start;
         background-color: #1A5FFF;
-        color: #FFFFFF;
         width: 100px;
         height: 35px;
-        border-radius: 5px;
         text-align: center;
     }
     
