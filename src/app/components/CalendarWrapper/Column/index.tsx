@@ -1,11 +1,12 @@
-import { format, getUnixTime } from 'date-fns';
+import { format, fromUnixTime, getUnixTime, isToday } from 'date-fns';
 import { pt } from 'date-fns/locale';
 import { useNavigate } from 'react-router-dom';
 import { ListPerDayTypes } from "../../../types/Record";
 import { Item } from "../Item";
-import { Container, DateField } from './styles';
-
-
+import { Button, Container, DateField, ListWrapper, ItensWrapper, NoProducts } from './styles';
+import { Cart } from '@styled-icons/bootstrap/Cart'
+import { ExclamationOctagon } from '@styled-icons/bootstrap/ExclamationOctagon'
+import { Loader } from '../../Loader';
 
 interface ColumnProps{
   productsPerDay: ListPerDayTypes; 
@@ -21,24 +22,38 @@ export function Column({productsPerDay}:ColumnProps) {
   }
 
   return (
-    <>
-      {!productsPerDay ? (
-        <div>loading</div>
-      ) : (
-        <Container>
-          <DateField>
-            {format(productsPerDay.date, "dd MMM yyy", { locale: pt })}
-          </DateField>
-          {productsPerDay ? (
-            productsPerDay.Data?.map(date => (
-              <Item name={date.product.nome} />
-            ))
-          ) : (
-            <div>nao existe</div>
-          )}
-          <button onClick={() => handleGoToCompleteList()}>Ver listagem completa</button>
-        </Container> 
+    <Container>
+      <DateField>
+        {format(productsPerDay.date, "dd MMM yyy", { locale: pt })}
+      </DateField>
+      <ListWrapper>
+      {!productsPerDay? (
+          <Loader size={20}/>
+      ) :(
+        <ItensWrapper>{
+        productsPerDay.Data && productsPerDay.Data?.length > 0 ?  (
+          
+            productsPerDay.Data?.map( (products, index) => (
+              (products.product.nome && index < 4 && (
+                <Item name={products.product.nome} key={products.id + "ITEM" + index}></Item>
+              ))
+            ))  
+  
+        ) : (
+          <NoProducts>
+            Nao há produtos
+            <ExclamationOctagon/>
+          </NoProducts>
+        )}
+        </ItensWrapper>
       )}
-    </>
+      {productsPerDay.Data && productsPerDay.Data.length > 0 && isToday(productsPerDay.date) && (
+        <Button className="today" onClick={() => handleGoToCompleteList()}><Cart/></Button>
+      )}
+      {productsPerDay.Data && productsPerDay.Data.length > 0 && !isToday(productsPerDay.date) &&(
+        <Button onClick={() => handleGoToCompleteList()}>Ver mais</Button>
+      )}
+      </ListWrapper> 
+    </Container>
   )
 }

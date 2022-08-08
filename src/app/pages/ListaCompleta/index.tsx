@@ -6,8 +6,7 @@ import { Header } from "../../components/Header";
 import { AuthContext } from "../../contexts/Auth/AuthContext";
 import { ProductContext } from "../../contexts/Products/ProdcutsProvider";
 import { createColumnsData } from "../../helpers/callendar";
-import { useApi } from "../../hooks/useApi";
-import { ListPerDayTypes, ProductRecord } from "../../types/Record";
+import { ListPerDayTypes } from "../../types/Record";
 import { User } from "../../types/User";
 import { Container, Product, Title } from "./styles";
 

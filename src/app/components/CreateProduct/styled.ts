@@ -1,12 +1,12 @@
 import styled from "styled-components";
 
 type OverlayPropsType = {
-  isOpen: boolean
+  isOpen: boolean,
 }
 
 export const Overlay  = styled.div<OverlayPropsType>`
-  display: ${props => props.isOpen ? "visible" : "hidden"};
-
+  display: ${props => props.isOpen? "visible" : "none"}; 
+  display: visible;
   position: fixed;
   top: 0; 
   left: 0;
