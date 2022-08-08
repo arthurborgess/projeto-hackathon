@@ -39,7 +39,8 @@ export function Listagem() {
 
     useEffect(() => {
         if (currentUser) { loadProducts(currentUser) }
-    }, [])
+        
+    }, [modalIsOpen])
 
     // ao clicar no botão de remover do componente ProductItem
     const removeHandler = (productObj: CustomProductObj) => {
