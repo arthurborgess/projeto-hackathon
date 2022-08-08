@@ -1,6 +1,5 @@
 {
   "name": "projeto-hackathon",
-  "homepage": "https://arthurborgess.github.io/projeto-hackathon",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
