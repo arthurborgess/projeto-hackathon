@@ -14,6 +14,16 @@ export const Container = styled.div`
     width: 100%;
     height: 100%;
     
+     .actionBtn {
+        font-weight: bold;
+        padding: 8px;
+        cursor: pointer;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        opacity: 0.8;
+    }
+    
 `
 
 export const Content = styled.div`
@@ -27,16 +37,7 @@ export const Content = styled.div`
     padding-bottom: 5px;
     flex-direction: column;
     background-color: #fefefe;
-    
-    .actionBtn {
-        font-weight: bold;
-        padding: 8px;
-        cursor: pointer;
-        color: white;
-        border: none;
-        border-radius: 4px;
-        opacity: 0.8;
-    }
+   
 `
 
 export const Top = styled.div`
