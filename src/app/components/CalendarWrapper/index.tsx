@@ -8,17 +8,19 @@ import { Loader } from "../Loader";
 
 export function CalendarWrapper (){
 
-  const { isLoading } = useContext(CreateProductContext)
-  const { columnsData, loading } = useContext(ProductContext)
+  const { isLoading, handleCreateProduct } = useContext(CreateProductContext)
+  const { columnsData, loading, setStartDate } = useContext(ProductContext)
   useEffect(() => {
-  },[columnsData])
+    setStartDate(new Date())
+  },[handleCreateProduct])
 
+
+  
   if(loading){
     return (
       <Loader size={300}/>
     )
   }
-
 
   return (
     <Wrapper>

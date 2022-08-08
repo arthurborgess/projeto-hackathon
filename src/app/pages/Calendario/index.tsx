@@ -13,9 +13,9 @@ import { Loader } from "../../components/Loader"
 
 export const Calendar = () => {
 
-  const { handleCreateProduct } = useContext(CreateProductContext)
+  const { isLoading } = useContext(CreateProductContext)
   const { user } = useContext(AuthContext)
-  const { startDate, setStartDate, numberOfColumns, setNumberOfColumns, loadProducts, loading } = useContext(ProductContext)
+  const { startDate, setStartDate, numberOfColumns, allProducts, loadProducts, loading } = useContext(ProductContext)
 
   function handleNextPeriod() {
     setStartDate(addDays(startDate, 1))
@@ -29,7 +29,11 @@ export const Calendar = () => {
 
   useEffect(() => {
     loadProducts(user, 365 + numberOfColumns)
-  }, [handleCreateProduct])
+  }, [isLoading])
+
+  useEffect(() => {
+
+  },[setStartDate])
 
   return (
     <>

@@ -9,6 +9,7 @@ import { Cart } from '@styled-icons/bootstrap/Cart'
 import {PlusCircleFill} from "@styled-icons/bootstrap/PlusCircleFill"
 import { CreateProductModal } from '../CreateProduct';
 import { Loader } from '../Loader';
+import { NoProducts } from '../NoProducts';
 
 
 export function Dashboard(){
@@ -22,7 +23,8 @@ export function Dashboard(){
   useEffect(() => {
     if(allProducts !== null){
       const listOfProducts = createColumnsData(allProducts, new Date(), 1)
-      allProducts.length !== 0 && allProducts && setNumberOfProducts(allProducts.length)
+      allProducts && setNumberOfProducts(allProducts.length)
+      console.log(listOfProducts[0])
       setTodayProducts(listOfProducts[0])
     }
   }, [allProducts])
@@ -32,12 +34,8 @@ export function Dashboard(){
   }
   
   function handleGoToProductsList(){
-    navigate("/")
+    navigate("/lista")
   } 
-  
-  function closeModal() {
-    setIsOpen(false);
-  }
   
   return (
     <>
@@ -52,12 +50,12 @@ export function Dashboard(){
               Produtos
             </MiniTitle>
 
-            {loading && numberOfProducts === null ? (
+            {loading ? (
                 <Loader size={60}/>
             ) : (
               numberOfProducts === null || numberOfProducts === 0 ? 
               (
-                <div>nao há produtos cadastrados</div>
+                <NoProducts msg="Nao há produtos cadastrados"/>
               ) : (
                 <span>{numberOfProducts?.toString()}</span>
               )
@@ -75,7 +73,7 @@ export function Dashboard(){
                 Cadastrar
                 <PlusCircleFill/>
               </Button >
-              {numberOfProducts === null ? (
+              {numberOfProducts === 0 ? (
                 <Button
                   disabled
                   onClick={() => handleGoToProductsList()}
@@ -111,7 +109,7 @@ export function Dashboard(){
           {loading? (
                 <Loader size={60}/>
             ) : (
-              todayProducts === undefined ? (
+              todayProducts?.Data?.length === 0 ? (
                 <Button
                   disabled
                   onClick={() => handleGoToCompleteList()}

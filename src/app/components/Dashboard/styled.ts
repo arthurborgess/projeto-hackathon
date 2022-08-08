@@ -34,7 +34,6 @@ export const Box = styled.div`
   -webkit-box-shadow: 0px 0px 16px -2px rgba(0,0,0,0.75);
   -moz-box-shadow: 0px 0px 16px -2px rgba(0,0,0,0.75);
 
-  
 `
 
 export const Title = styled.h2`
@@ -108,7 +107,22 @@ export const Button = styled.button`
     width: 120px;
 
     @media (max-width: 840px){
-    width: 100%px;
+    width: 100%;
+    }
+
+    &:disabled {
+      background-color: grey;
+      opacity: .3;
+      cursor: not-allowed;
+
+      &:hover {
+        background-color: grey;
+        color: black;
+        ${StyledIconBase} {
+        color: black;
+        font-size: 12px;
+        }
+      }
     }
 
     margin: 8px;

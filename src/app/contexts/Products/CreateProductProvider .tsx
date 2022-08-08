@@ -54,6 +54,24 @@ export function CreateProdcutProvider({ children }: ProducContextProviderProps) 
 
 
   const handleCreateProduct = (user: User | null) => {
+
+    if(itemName === ""){
+      setErr("O nome do produto é obrigatório")
+      return
+    }
+
+    if(typeEnd !== "never"){
+      if(endDate === null){
+        setErr("Por favor insira uma data final")
+        return
+      }
+    }
+    if(repeatPattern.type === "semana"){
+      if(weekDays.days.length === 0){
+        setErr("Por favor selecione os dias da semana")
+        return  
+      }
+    }
     
     createProduct(getLoading, getErr, user, {
       nome: itemName,
@@ -61,8 +79,18 @@ export function CreateProdcutProvider({ children }: ProducContextProviderProps) 
       frequencia_da_repeticao: repeatPattern.frequency,
       repete_nos_dias: weekDays.days.toString(),
       encerramento: endDate === null ? 0 : getUnixTime(endDate),
-      data_criacao: weekDays.realInitialDate === null ? getUnixTime(new Date()) : getUnixTime(weekDays.realInitialDate),
+      data_criacao: weekDays.realInitialDate === null ? getUnixTime(initialDate) : getUnixTime(weekDays.realInitialDate),
       data_primeira_ocorrencia: weekDays.realInitialDate === null ? 0 : getUnixTime(weekDays.realInitialDate) 
+    })
+    setItemName("")
+    setEndDate(null)
+    setWeekDays({
+      days: [],
+      realInitialDate: null
+    })
+    setRepeatPattern({
+      frequency: 1,
+      type: "dia"
     })
   }
 
@@ -81,6 +109,7 @@ export function CreateProdcutProvider({ children }: ProducContextProviderProps) 
     setWeekDays,
     handleCreateProduct,
     err,
+    setErr,
     isLoading
   }
 

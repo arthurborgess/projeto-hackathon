@@ -5,8 +5,8 @@ import { ListPerDayTypes } from "../../../types/Record";
 import { Item } from "../Item";
 import { Button, Container, DateField, ListWrapper, ItensWrapper, NoProducts } from './styles';
 import { Cart } from '@styled-icons/bootstrap/Cart'
-import { ExclamationOctagon } from '@styled-icons/bootstrap/ExclamationOctagon'
 import { Loader } from '../../Loader';
+import { NotInterested } from '@styled-icons/material/NotInterested'
 
 interface ColumnProps{
   productsPerDay: ListPerDayTypes; 
@@ -42,7 +42,7 @@ export function Column({productsPerDay}:ColumnProps) {
         ) : (
           <NoProducts>
             Nao há produtos
-            <ExclamationOctagon/>
+            <NotInterested/>
           </NoProducts>
         )}
         </ItensWrapper>

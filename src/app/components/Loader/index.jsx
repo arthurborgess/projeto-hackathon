@@ -2,7 +2,7 @@ import { useState, CSSProperties } from "react";
 import ClipLoader from "react-spinners/ClipLoader";
 import { LoadWrapper } from "./styled";
 
-const override: CSSProperties = {
+const override = {
   display: "block",
   margin: "0 auto",
   borderColor: "blue",

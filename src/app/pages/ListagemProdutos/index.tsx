@@ -20,6 +20,7 @@ import { CustomProductObj } from '../../types/Product'
 import { AuthContext } from "../../contexts/Auth/AuthContext";
 import { Header } from '../../components/Header'
 import { User } from '../../types/User'
+import { CreateProductModal } from '../../components/CreateProduct'
 
 
 
@@ -27,7 +28,7 @@ export function Listagem() {
 
     let [products, setProducts] = useState<ProductRecord[]>([])
     let [showConfirmationModal, setConfirmationModal] = useState(false)
-    let [showEditModal, setEditModal] = useState(true)
+    const [ modalIsOpen, setIsOpen] = useState<boolean>(false);
     let [currentProduct, setCurrentProduct] = useState<CustomProductObj>()
     const currentUser = useContext(AuthContext).user
     const api = useApi()
@@ -66,8 +67,8 @@ export function Listagem() {
                 <Top>
                     <h3>Lista de Produtos</h3>
 
-                    <button className='registerBtn actionBtn'>
-                        <Link to='/new'>Cadastrar</Link>
+                    <button onClick={() => setIsOpen(true)} className='registerBtn actionBtn'>
+                     Cadastrar
                     </button>
 
                 </Top>
@@ -118,6 +119,10 @@ export function Listagem() {
                         onConfirmation={confirmationHandler}
                     />
                 }
+                 <CreateProductModal
+                    isOpen={modalIsOpen}
+                    setModalOpen={setIsOpen}
+                    />
             </Container>
 
         </>

@@ -18,6 +18,7 @@ export interface GetAndSeterProductData {
   setWeekDays: React.Dispatch<React.SetStateAction<weekDaysTypes>>,
   handleCreateProduct: (user: User | null) => void,
   err: any,
+  setErr:  React.Dispatch<React.SetStateAction<any>>,
   isLoading: boolean
 }
 

@@ -43,11 +43,14 @@ export const Select = styled.select`
   height: 32px;
   width: 80px;
 
-  padding: 4px;
-  text-align: left;
+  text-align: center;
   vertical-align: center;
 
   border-radius: 8px;
+
+  > option {
+    line-height: 32px;
+  }
 
   transition: .1s;
   &:focus , &:hover{
