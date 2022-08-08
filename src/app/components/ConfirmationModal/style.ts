@@ -13,17 +13,6 @@ export const Container = styled.div`
     opacity: 1;
     width: 100%;
     height: 100%;
-    
-     .actionBtn {
-        font-weight: bold;
-        padding: 8px;
-        cursor: pointer;
-        color: white;
-        border: none;
-        border-radius: 4px;
-        opacity: 0.8;
-    }
-    
 `
 
 export const Content = styled.div`
