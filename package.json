@@ -1,5 +1,6 @@
 {
   "name": "projeto-hackathon",
+  "homepage": "https://arthurborgess.github.io/projeto-hackathon",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -26,6 +27,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts --max_old_space_size=4096 start",
     "build": "react-scripts --max_old_space_size=4096 build",
     "test": "react-scripts test",
@@ -55,6 +58,7 @@
     "@types/react-calendar": "^3.5.2",
     "@types/react-datepicker": "^4.4.2",
     "@types/react-router-dom": "^5.3.3",
-    "@types/styled-components": "^5.1.25"
+    "@types/styled-components": "^5.1.25",
+    "gh-pages": "^4.0.0"
   }
 }
