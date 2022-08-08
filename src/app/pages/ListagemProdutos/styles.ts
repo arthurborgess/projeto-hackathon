@@ -8,6 +8,20 @@ export const Container = styled.div`
     width: 95%;
     max-width: 900px;
     margin: auto;
+    
+    .actionBtn {
+        font-weight: bold;
+        padding: 8px;
+        cursor: pointer;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        opacity: 0.8;
+    }
+    
+    .actionBtn:hover {
+        opacity: 1;
+    }
 
     svg {
         cursor: pointer;
@@ -29,19 +43,6 @@ export const Top = styled.div`
     padding-top: 20px;
     padding-bottom: 10px;
     
-    .actionBtn {
-        font-weight: bold;
-        padding: 8px;
-        cursor: pointer;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        opacity: 0.8;
-    }
-    
-    .actionBtn:hover {
-        opacity: 1;
-    }
 
     .registerBtn {
         align-self: flex-start;
