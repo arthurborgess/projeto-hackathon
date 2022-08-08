@@ -8,39 +8,43 @@ import { Buttons, Wrapper, Box } from "./styles"
 import { NavigateNext } from '@styled-icons/material-outlined/NavigateNext'
 import { NavigateBefore } from '@styled-icons/material-outlined/NavigateBefore'
 import { CreateProductContext } from "../../contexts/Products/CreateProductProvider "
+import { Header } from "../../components/Header";
 import { Loader } from "../../components/Loader"
 
 export const Calendar = () => {
 
   const { handleCreateProduct } = useContext(CreateProductContext)
   const { user } = useContext(AuthContext)
-  const { startDate, setStartDate, numberOfColumns, setNumberOfColumns, loadProducts, loading} = useContext(ProductContext)
-  
-  function handleNextPeriod(){
+  const { startDate, setStartDate, numberOfColumns, setNumberOfColumns, loadProducts, loading } = useContext(ProductContext)
+
+  function handleNextPeriod() {
     setStartDate(addDays(startDate, 1))
   }
-  function handlePrevPeriod(){
+  function handlePrevPeriod() {
     setStartDate(addDays(startDate, -1))
   }
-  function handleNow(){
+  function handleNow() {
     setStartDate(new Date())
   }
 
   useEffect(() => {
     loadProducts(user, 365 + numberOfColumns)
-  },[handleCreateProduct])
-  
+  }, [handleCreateProduct])
+
   return (
-    <Wrapper>
-      <Dashboard/>
-      <Box>
-        <CalendarWrapper/>
-        <Buttons>
-          <button onClick={() => handlePrevPeriod()} className="next-prev"><NavigateBefore/></button>
-          <button onClick={() => handleNow()} className="today">Hoje</button>
-          <button onClick={() => handleNextPeriod()} className="next-prev"><NavigateNext/></button>
-        </Buttons>
-      </Box> 
-    </Wrapper>
+    <>
+      <Header />
+      <Wrapper>
+        <Dashboard />
+        <Box>
+          <CalendarWrapper />
+          <Buttons>
+            <button onClick={() => handlePrevPeriod()} className="next-prev"><NavigateBefore /></button>
+            <button onClick={() => handleNow()} className="today">Hoje</button>
+            <button onClick={() => handleNextPeriod()} className="next-prev"><NavigateNext /></button>
+          </Buttons>
+        </Box>
+      </Wrapper>
+    </>
   )
 }

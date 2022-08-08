@@ -24,7 +24,7 @@ export const App = () => {
         <GlobalStyle />
         <Routes>
           <Route path="/login" element={<LoginCadastro />} />
-          <Route path="/calendar" element={<RequireAuth><Calendar /></RequireAuth>} />
+          <Route path="/" element={<RequireAuth><Calendar /></RequireAuth>} />
           <Route path="/lista" element={<RequireAuth><Listagem /></RequireAuth>} />
           <Route path="/lista-completa/:timestamp" element={<RequireAuth><ListaCompleta /></RequireAuth>} />
         </Routes>
