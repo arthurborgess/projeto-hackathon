@@ -20,32 +20,11 @@ export const CreateProductModal = ({isOpen, setModalOpen}: CreateProdutModalProp
   const { user } = useContext(AuthContext)
   const [ error, setError ] = useState<string | null>(null)
 
-  useEffect(() => {
-    if(err !== null || err !== undefined){
-      setError(err)
-    }
-  },[err])
-
   
   function handleChangeName(e: React.ChangeEvent<HTMLInputElement>) {
     e.preventDefault()
     setItemName(e.target.value)
   }
-
-  useEffect(() => {
-    if(error !== null && error !== undefined){
-      toast(error, {
-      position: "bottom-center",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined});
-    }
-  },[error])
-  
-
 
   return (
     <Overlay

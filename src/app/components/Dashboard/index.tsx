@@ -1,12 +1,12 @@
 import { DashboardWrapper, Box, Title, MiniBox, Wrapper, MiniTitle, Buttons, Button } from './styled'
 import { useNavigate } from 'react-router-dom';
 import { createColumnsData } from "../../helpers/callendar";
-import {useState, useEffect, useContext } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { ProductContext } from "../../contexts/Products/ProdcutsProvider";
 import { ListPerDayTypes } from "../../types/Record";
 import { getUnixTime } from 'date-fns';
 import { Cart } from '@styled-icons/bootstrap/Cart'
-import {PlusCircleFill} from "@styled-icons/bootstrap/PlusCircleFill"
+import { PlusCircleFill } from "@styled-icons/bootstrap/PlusCircleFill"
 import { CreateProductModal } from '../CreateProduct';
 import { Loader } from '../Loader';
 import { NoProducts } from '../NoProducts';

@@ -54,24 +54,6 @@ export function CreateProdcutProvider({ children }: ProducContextProviderProps) 
 
 
   const handleCreateProduct = (user: User | null) => {
-
-    if(itemName === ""){
-      setErr("O nome do produto é obrigatório")
-      return
-    }
-
-    if(typeEnd !== "never"){
-      if(endDate === null){
-        setErr("Por favor insira uma data final")
-        return
-      }
-    }
-    if(repeatPattern.type === "semana"){
-      if(weekDays.days.length === 0){
-        setErr("Por favor selecione os dias da semana")
-        return  
-      }
-    }
     
     createProduct(getLoading, getErr, user, {
       nome: itemName,
