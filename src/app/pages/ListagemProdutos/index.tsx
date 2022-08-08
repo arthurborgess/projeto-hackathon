@@ -38,7 +38,7 @@ export function Listagem() {
     }
 
     useEffect(() => {
-        if (currentUser && modalIsOpen) { loadProducts(currentUser) }
+        if (currentUser) { loadProducts(currentUser) }
         
         
     }, [modalIsOpen])
