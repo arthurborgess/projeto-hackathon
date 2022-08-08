@@ -7,7 +7,7 @@ import { User } from "../types/User";
 
 const Airtable = require('airtable');
 const base = new Airtable({
-    apiKey: process.env.REACT_APP_API_KEY
+    apiKey: 'keyaVkftbYjaJeJnG'
 }).base('app9wnjqsxjLcI8yq');
 
 const table = base('Usuarios');
