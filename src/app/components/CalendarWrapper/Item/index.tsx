@@ -7,6 +7,12 @@ interface ItemProps {
 export function Item({ name }: ItemProps) {
 
   return (
-    <Container>{name}</Container>
+    <Container>
+      {name.length > 7 ? (
+       <span>{name.slice(0, 8)}...</span>  
+      ) : ( 
+        name
+      )}
+    </Container>
   )
 }

@@ -1,12 +1,12 @@
 import styled from "styled-components";
 
 type OverlayPropsType = {
-  isOpen: boolean
+  isOpen: boolean,
 }
 
 export const Overlay  = styled.div<OverlayPropsType>`
-  display: ${props => props.isOpen ? "visible" : "hidden"};
-
+  display: ${props => props.isOpen? "visible" : "none"}; 
+  display: visible;
   position: fixed;
   top: 0; 
   left: 0;
@@ -69,8 +69,10 @@ export const Cancel = styled.button`
   outline: none;
   border-radius: 8px;
   border: 1px solid #1a5fff;
+  text-align: center;
   width: 100px;
   height: 32px;
+  line-height: 32px;
   
   &:hover {
     cursor: pointer;
@@ -80,8 +82,10 @@ export const Create = styled.button`
   outline: none;
   border: none;
 
+  text-align: center;
   width: 100px;
   height: 32px;
+  line-height: 32px;
   color: #ffffff;
   border-radius: 8px;
   background-color: #1a5fff;

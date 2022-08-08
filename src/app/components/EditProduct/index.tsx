@@ -78,7 +78,7 @@ export default function EditProductModal({
     // }
 
   return (
-    <Overlay isOpen={isOpen}>
+    // <Overlay isOpen={isOpen}>
       <Wrapper>
 
         <Modal>
@@ -108,6 +108,6 @@ export default function EditProductModal({
 
       </Wrapper>
 
-    </Overlay>
+    // </Overlay>
   )
 }

@@ -10,7 +10,7 @@ export const Form = styled.form`
     left: 50%;
     top: 50%;
     position: absolute;
-    transform translate(-50%, -50%);
+    transform: translate(-50%, -50%);
     width: 95%;
     max-width: 400px;
     border-radius: 10px;

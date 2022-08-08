@@ -15,7 +15,7 @@ export function ProdcutProvider({ children }: ProductProviderProps){
   const api = useApi()
   const [ allProducts, setAllProducts ] = useState<ProductRecord[] | null>(null)
   const [ loading, setLoading] = useState<boolean>(false)
-  const [ numberOfColumns, setNumberOfColumns ] = useState<number>(7)
+  const [ numberOfColumns, setNumberOfColumns ] = useState<number>(6)
   const [ startDate, setStartDate ] = useState<Date>(new Date())
   const [ columnsData , setColumnsData ] = useState<ListPerDayTypes[]>()
 

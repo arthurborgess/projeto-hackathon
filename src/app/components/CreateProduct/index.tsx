@@ -10,7 +10,7 @@ import { AuthContext } from "../../contexts/Auth/AuthContext"
 
 interface CreateProdutModalProps {
   isOpen: boolean;
-  setModalOpen?: React.Dispatch<React.SetStateAction<boolean>>
+  setModalOpen: React.Dispatch<React.SetStateAction<boolean>>
   toClose?: React.Dispatch<React.SetStateAction<boolean>>
 }
 
@@ -43,13 +43,12 @@ export const CreateProductModal = ({isOpen, setModalOpen, toClose}: CreateProdut
           )}
           <SetEndDate />
           <ButtonsWrapper>
-            <Cancel>Cancelar</Cancel>
+            <Cancel onClick={() => setModalOpen(false)}>Cancelar</Cancel>
             <Create onClick={() => handleCreateProduct(user)}>Criar</Create>
           </ButtonsWrapper>
           {isLoading && (<p>carregando</p>)}
         </Modal>
       </Wrapper>
-
     </Overlay>
   )
 }

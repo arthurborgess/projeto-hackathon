@@ -6,7 +6,6 @@ import { User } from "./User"
 export interface ProductRecord {
     id: string,
     product: {
-        id: string,
         id_usuario: string,
         nome: string,
         tipo_de_repeticao: FrequencyTypes,

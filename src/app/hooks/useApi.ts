@@ -93,7 +93,6 @@ export const useApi = () => ({
             for (let record of records) {
                 let daysInlist = getListOfDatesPerProduct({ id: record.id, product: record.fields }, numberOfViews ? numberOfViews : 6)
                 let p: ProductRecord = { id: record.id, product: { ...record.fields, dias_em_listas: daysInlist } }
-
                 products.push(p)
             }
             return products

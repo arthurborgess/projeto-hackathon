@@ -23,7 +23,7 @@ export const LoginCadastro = () => {
             if (cpfValidate(formattedCpf) && emailValidate(email)) {
                 const isLogged = await auth.login(email, formattedCpf, saveLogin);
                 if (isLogged) {
-                    navigate('/');
+                    navigate('/calendar');
                 }
             }
         }
