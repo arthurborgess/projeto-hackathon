@@ -1,3 +1,4 @@
+
 type Props = {
     cpf: string;
     setCpf: (cpf: string) => void;
@@ -28,8 +29,6 @@ export const InputCpf = ({ cpf, setCpf }: Props) => {
         }
 
         setCpf(event.currentTarget.value);
-
-        console.log(cpf)
     }
 
     return (
