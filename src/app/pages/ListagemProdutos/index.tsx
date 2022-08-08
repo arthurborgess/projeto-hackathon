@@ -10,18 +10,16 @@ import ConfirmationModal from '../../components/ConfirmationModal'
 import EditProductModal from '../../components/EditProduct'
 
 // funções e estilo
-import { Container, Top, Content} from './styles'
+import { Container, Top, Content } from './styles'
 
 // tipos
-import { ListPerDayTypes, ProductRecord } from '../../types/Record'
+import { ProductRecord } from '../../types/Record'
 import { CustomProductObj } from '../../types/Product'
 
 // contexto
 import { AuthContext } from "../../contexts/Auth/AuthContext";
 import { Header } from '../../components/Header'
 import { User } from '../../types/User'
-import { ProductContext } from '../../contexts/Products/ProdcutsProvider'
-import { createColumnsData } from '../../helpers/callendar'
 
 
 
@@ -30,62 +28,41 @@ export function Listagem() {
     let [products, setProducts] = useState<ProductRecord[]>([])
     let [showConfirmationModal, setConfirmationModal] = useState(false)
     let [showEditModal, setEditModal] = useState(true)
-    let [currentProduct, setCurrentProduct] = useState<ListPerDayTypes>()
-    
-    const { loading, allProducts } = useContext(ProductContext)
+    let [currentProduct, setCurrentProduct] = useState<CustomProductObj>()
     const currentUser = useContext(AuthContext).user
     const api = useApi()
 
     const loadProducts = (user: User) => {
-        api.getProducts(user).then(setProducts) 
+        api.getProducts(user).then(setProducts)
     }
 
     useEffect(() => {
-        if(currentUser) { loadProducts(currentUser) }
+        if (currentUser) { loadProducts(currentUser) }
     }, [])
 
-    useEffect(() => {
-        if(allProducts !== null){
-           const currentProducts = createColumnsData(allProducts, new Date(), 1)
-           setCurrentProduct(currentProducts[0])
-        }
-    },[allProducts])
-
     // ao clicar no botão de remover do componente ProductItem
-    // const removeHandler = (productObj: CustomProductObj) => {
-    //     setCurrentProduct(productObj)
-    //     setConfirmationModal(true)
-    // }
+    const removeHandler = (productObj: CustomProductObj) => {
+        setCurrentProduct(productObj)
+        setConfirmationModal(true)
+    }
 
     // caso clique em algum dos botões do modal de confirmação
-    // const confirmationHandler = (confirmation: boolean) => {
-        
-    //     if(confirmation && currentProduct && currentUser) {
-    //         api.removeProduct(currentProduct.id)
-    //         .then(resp => loadProducts(currentUser))
-           
-    //     }
-    //     setConfirmationModal(false)
-    // }
+    const confirmationHandler = (confirmation: boolean) => {
+
+        if (confirmation && currentProduct && currentUser) {
+            api.removeProduct(currentProduct.id)
+                .then(resp => loadProducts(currentUser))
+
+        }
+        setConfirmationModal(false)
+    }
 
     return (
         <>
             <Header />
 
-            {loading ? (
-                <div>loding</div>
-            ) : (
-                currentProduct?.Data? (
-                    currentProduct.Data.map(products => (
-                        <div id={products.id}>{products.product.nome}</div>
-                    ))
-                ) : (
-                    <div>Sem produtos</div>
-                )
-            )}
-
             <Container>
-{/* 
+
                 <Top>
                     <h3>Lista de Produtos</h3>
 
@@ -95,7 +72,7 @@ export function Listagem() {
 
                 </Top>
                 {
-                    products.length === 0 && 
+                    products.length === 0 &&
                     <div className='noProductsMsg'>
                         Nenhum produto cadastrado
                     </div>
@@ -103,54 +80,47 @@ export function Listagem() {
 
                 {
                     products.length > 0 &&
-                <>
-                    <Content>
+                    <>
+                        <Content>
 
-                        <thead>
-                            <tr>
-                                <th>Data de Criação</th>
-                                <th>Nome do Produto</th>
-                                <th>Ações</th>
-                            </tr>
+                            <thead>
+                                <tr>
+                                    <th>Data de Criação</th>
+                                    <th>Nome do Produto</th>
+                                    <th>Ações</th>
+                                </tr>
 
-                      
-                        </thead>
 
-                        <tbody>
-                        {
-                            products.map((record, index) => {
-                                return (
-                                <ProductItem
-                                key={index}
-                                record={record}
-                                onRemove={removeHandler}
-                                />)
-                            })
-                        }
-                        </tbody>
+                            </thead>
 
-                    </Content>
-                </>
+                            <tbody>
+                                {
+                                    products.map((record, index) => {
+                                        return (
+                                            <ProductItem
+                                                key={index}
+                                                record={record}
+                                                onRemove={removeHandler}
+                                            />)
+                                    })
+                                }
+                            </tbody>
+
+                        </Content>
+                    </>
                 }
                 {
                     showConfirmationModal &&
                     <ConfirmationModal
-                    show
-                    title='Confirmar'
-                    msg={`Deseja excluir o item ${currentProduct?.name}?`}
-                    onConfirmation={confirmationHandler}
-                />
+                        show
+                        title='Confirmar'
+                        msg={`Deseja excluir o item ${currentProduct?.name}?`}
+                        onConfirmation={confirmationHandler}
+                    />
                 }
+            </Container>
 
-                {
-                    showEditModal &&
-                    <EditProductModal
-                    startProduct={currentProduct}
-                    isOpen
-                     />
-
-                } */}
-            </Container>           
         </>
     )
+
 }

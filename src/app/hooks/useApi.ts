@@ -1,7 +1,8 @@
 import { MD5 } from "crypto-js";
+import { getUnixTime } from "date-fns";
 import { getListOfDatesPerProduct } from "../helpers/nextOcurrenceDay";
-import { createProductType } from "../types/Product";
-import {ProductRecord, ResOfProductRecords} from '../types/Record'
+import { BoughtProduct, createProductType } from "../types/Product";
+import { ProductRecord, ResOfProductRecords } from '../types/Record'
 import { User } from "../types/User";
 
 const Airtable = require('airtable');
@@ -32,7 +33,6 @@ export const useApi = () => ({
 
         var response = await table.select({
             filterByFormula: `id_usuario = "${currentUser}"`
-
         }).firstPage();
 
         if (response.length === 0) {
@@ -74,9 +74,9 @@ export const useApi = () => ({
             });
     },
 
-    getProducts: async (userID: any, numberOfViews?:number) => {
+    getProducts: async (userID: any, numberOfViews?: number) => {
 
-        const records:ResOfProductRecords[] = await base('Produtos')
+        const records: ResOfProductRecords[] = await base('Produtos')
             .select({
                 filterByFormula: `id_usuario = "${userID}"`,
                 sort: [{ field: 'data_criacao', direction: 'asc' }]
@@ -90,10 +90,10 @@ export const useApi = () => ({
         else {
             let products: ProductRecord[] = []
 
-            for(let record  of records) {
-                let daysInlist = getListOfDatesPerProduct({id: record.id, product:record.fields}, numberOfViews? numberOfViews : 6)
-                let p: ProductRecord = { id: record.id, product:{...record.fields, dias_em_listas: daysInlist}}
-                
+            for (let record of records) {
+                let daysInlist = getListOfDatesPerProduct({ id: record.id, product: record.fields }, numberOfViews ? numberOfViews : 6)
+                let p: ProductRecord = { id: record.id, product: { ...record.fields, dias_em_listas: daysInlist } }
+
                 products.push(p)
             }
             return products
@@ -134,10 +134,48 @@ export const useApi = () => ({
         base('Produtos').update([productRecord],
 
             function (err: any, records: any) {
-                if(err) {console.log(err);}
-            
+                if (err) { console.log(err); }
+
             }
         )
 
+    },
+    boughtProduct: async (record: ProductRecord, user: User | null) => {
+        let data = getUnixTime(new Date());
+        let productId = user + '-' + record.product.nome;
+        await base('Produtos_Comprados').create([
+            {
+                "fields": {
+                    "id_usuario": user,
+                    "id_produto": productId,
+                    "data_compra": data
+                }
+            }
+        ], function (err: any, records: any) {
+            if (err) {
+                console.log(err)
+            }
+        }
+        );
+    },
+    getBoughtProducts: async (user: User | null) => {
+        const records = await base('Produtos')
+            .select({
+                filterByFormula: `id_usuario = "${user}"`,
+            })
+            .all()
+
+        if (records.length === 0) {
+            return []
+        }
+        else {
+            let products = []
+
+            for (let record of records) {
+                let p: BoughtProduct = { id: record.id, product: record.fields }
+                products.push(p)
+            }
+            return products;
+        }
     }
 })

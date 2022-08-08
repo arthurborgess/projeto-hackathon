@@ -32,6 +32,11 @@ export const Top = styled.div`
     .registerBtn {
         align-self: flex-start;
         background-color: #1A5FFF;
+        color: #FFFFFF;
+        width: 100px;
+        height: 35px;
+        border-radius: 5px;
+        text-align: center;
     }
     
 `

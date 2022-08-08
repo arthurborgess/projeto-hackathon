@@ -1,9 +1,9 @@
 import { User } from "./User";
 
-export type FrequencyTypes =  "dia" | "semana" | "mes" | "ano" ;
+export type FrequencyTypes = "dia" | "semana" | "mes" | "ano";
 export type FrequencyValues = [FrequencyTypes]
 
-export interface GetAndSeterProductData{
+export interface GetAndSeterProductData {
   itemName: string;
   setItemName: React.Dispatch<React.SetStateAction<string>>
   repeatPattern: RepeatPatternInterface;
@@ -25,7 +25,7 @@ export type typeEndOption = "never" | "in" | "after";
 
 export interface RepeatPatternInterface {
   frequency: number,
-  type: FrequencyTypes 
+  type: FrequencyTypes
 }
 
 export interface weekDaysTypes {
@@ -46,4 +46,14 @@ export interface createProductType {
 export interface CustomProductObj {
   id: string,
   name: string
+}
+
+export interface BoughtProduct {
+  id: string,
+  product: {
+    id: string,
+    id_usuario: string,
+    id_produto: string,
+    data_compra: string
+  }
 }

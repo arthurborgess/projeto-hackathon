@@ -16,8 +16,6 @@ import { RequireAuth } from "./contexts/Auth/RequireAuth";
 import { Calendar } from "./pages/Calendario";
 import { ProdcutProvider } from "./contexts/Products/ProdcutsProvider";
 import { ListaCompleta } from "./pages/ListaCompleta";
-import EditProduct from "./components/EditProduct";
-
 
 export const App = () => {
   return (
@@ -29,7 +27,7 @@ export const App = () => {
           <Route path="/calendar" element={<RequireAuth><Calendar /></RequireAuth>} />
           <Route path="/" element={<RequireAuth><Listagem /></RequireAuth>} />
           <Route path="/new" element={<RequireAuth><CreateProductModal isOpen={true} /></RequireAuth>} />
-          <Route path="/lista-completa" element={<RequireAuth><ListaCompleta /></RequireAuth>} />
+          <Route path="/lista-completa/:timestamp" element={<RequireAuth><ListaCompleta /></RequireAuth>} />
         </Routes>
       </ProdcutProvider>
     </CreateProdcutProvider>
