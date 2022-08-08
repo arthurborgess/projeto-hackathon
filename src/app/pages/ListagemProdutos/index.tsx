@@ -38,7 +38,8 @@ export function Listagem() {
     }
 
     useEffect(() => {
-        if (currentUser) { loadProducts(currentUser) }
+        if (currentUser && modalIsOpen) { loadProducts(currentUser) }
+        
         
     }, [modalIsOpen])
 
@@ -54,7 +55,6 @@ export function Listagem() {
         if (confirmation && currentProduct && currentUser) {
             api.removeProduct(currentProduct.id)
                 .then(resp => loadProducts(currentUser))
-
         }
         setConfirmationModal(false)
     }
