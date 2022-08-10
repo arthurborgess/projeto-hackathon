@@ -1,5 +1,5 @@
 import { Container, Form, Input, SaveLogin, Submit } from "./styles";
-import { useContext, useState } from "react";
+import React, { useContext, useState } from "react";
 import { InputCpf } from "../../components/InputCpf";
 import { AuthContext } from "../../contexts/Auth/AuthContext";
 import { useNavigate } from "react-router-dom";
@@ -42,8 +42,8 @@ export const LoginCadastro = () => {
                     autoFocus
                 />
                 <InputCpf
-                    cpf={cpf}
-                    setCpf={setCpf}
+                    value={cpf}
+                    onChange={e => setCpf(e.target.value)}
                 />
                 <SaveLogin>
                     <input
