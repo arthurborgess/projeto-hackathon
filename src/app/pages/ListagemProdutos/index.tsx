@@ -40,6 +40,7 @@ export function Listagem() {
     useEffect(() => {
         if (currentUser) { loadProducts(currentUser) }
         
+        
     }, [modalIsOpen])
 
     // ao clicar no botão de remover do componente ProductItem
@@ -54,7 +55,6 @@ export function Listagem() {
         if (confirmation && currentProduct && currentUser) {
             api.removeProduct(currentProduct.id)
                 .then(resp => loadProducts(currentUser))
-
         }
         setConfirmationModal(false)
     }
