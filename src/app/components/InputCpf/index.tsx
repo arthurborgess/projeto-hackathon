@@ -6,13 +6,14 @@ type Props = {
 }
 
 export const InputCpf = ({ value, onChange }: Props) => {
-    console.log(value);
+    console.log(value)
     return (
         <InputMask
             mask="999.999.999-99"
             value={value}
             onChange={onChange}
             id="cpf-input"
+            placeholder="CPF"
         />
     );
 }
