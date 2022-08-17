@@ -1,48 +1,49 @@
-export const cpfValidate = (cpf: string) => {
-    if (!repeatedDigit(cpf)) {
-        alert('CPF inválido');
-        return false;
+const strings = [
+    [10, 9, 8, 7, 6, 5, 4, 3, 2],
+    [11, 10, 9, 8, 7, 6, 5, 4, 3, 2]
+];
+
+export const cpfValidate = (cpf: string): boolean => {
+    let numbers = cpf.slice(0, -2);
+    let digits = cpf.slice(-2);
+
+    let firstDigit = getFirstDigit(numbers);
+
+    if (repeatedDigit(cpf)) {
+        if (firstDigit === Number(digits[0])) {
+            let secondDigit = getSecondDigit(numbers + firstDigit);
+            return secondDigit === Number(digits[1]) ? true : false;
+        }
     }
-    if (!firstDigit(cpf)) {
-        alert('CPF inválido');
-        return false;
-    }
-    if (!secondDigit(cpf)) {
-        alert('CPF inválido');
-        return false;
-    }
-    return true;
+    alert("CPF inválido!");
+    return false;
 }
 
-const firstDigit = (cpf: any) => {
+const getFirstDigit = (numbers: string): number => {
     let sum = 0;
-    for (let i = 0; i < 9; i++) {
-        sum += cpf[i] * (10 - i);
+    for (let i in strings[0]) {
+        sum += Number(numbers[i]) * strings[0][i];
     }
-    const rest = (sum * 10) % 11;
-    if (rest < 10) {
-        return cpf[9] == rest;
-    }
-    return cpf[9] == 0;
+    let rest = sum % 11;
+    const digit = rest < 2 ? 0 : (11 - rest);
+    return digit;
 }
 
-const secondDigit = (cpf: any) => {
+const getSecondDigit = (numbers: string): number => {
     let sum = 0;
-    for (let i = 0; i < 10; i++) {
-        sum += cpf[i] * (11 - i);
+    for (let i in strings[1]) {
+        sum += Number(numbers[i]) * strings[1][i];
     }
-    const rest = (sum * 10) % 11;
-    if (rest < 10) {
-        return cpf[10] == rest;
-    }
-    return cpf[10] == 0;
+    let rest = sum % 11;
+    const digit = rest < 2 ? 0 : (11 - rest);
+    return digit;
 }
 
-const repeatedDigit = (cpf: any) => {
+const repeatedDigit = (cpf: string): boolean => {
     const first = cpf[0];
     let different = false;
     for (let i = 1; i < cpf.length; i++) {
-        if (cpf[i] != first) {
+        if (cpf[i] !== first) {
             different = true;
         }
     }
