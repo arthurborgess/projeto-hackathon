@@ -1,4 +1,5 @@
-# Visualização do projeto: https://main--projeto-hackathon.netlify.app/
+## Visualização do projeto: https://main--projeto-hackathon.netlify.app/
+### * Todos os dados são criptografados em MD5 antes de serem enviados ao nosso banco de dados. Não temos acesso a nenhuma informação dos usuários. Usufrua sem medo! :) * 
 
 ## Você já foi ao mercado e esqueceu um item pois não estava em uma lista?
 
