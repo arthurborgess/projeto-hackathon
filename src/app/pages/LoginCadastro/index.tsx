@@ -43,7 +43,7 @@ export const LoginCadastro = () => {
                 />
                 <InputCpf
                     value={cpf}
-                    onChange={e => setCpf(e.target.value)}
+                    setValue={setCpf}
                 />
                 <SaveLogin>
                     <input
