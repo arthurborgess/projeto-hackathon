@@ -6,11 +6,6 @@ type Props = {
 
 export const InputCpf = ({ value, setValue }: Props) => {
 
-    function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
-        event.preventDefault();
-        let currentValue = event.target.value.replace(/[^0-9]/g, '');
-        setValue(cpfFormat(currentValue));
-    };
     function cpfFormat(cpf: string): string {
         return cpf
             .replace(/\D/g, '')
@@ -24,7 +19,7 @@ export const InputCpf = ({ value, setValue }: Props) => {
         <input
             type="tel"
             value={value}
-            onChange={handleChange}
+            onChange={e => setValue(cpfFormat(e.target.value))}
             placeholder="CPF"
             id="cpf-input"
         />
